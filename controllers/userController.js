@@ -1,5 +1,7 @@
 const list = require("../models/user");
 const entry = require("../models/Entry");
+const bcrypt = require('bcrypt');
+const saltRounds = 8;
 
 const getAllList = async(req, res) => {
     const myData = await list.find(req.query);
@@ -24,7 +26,17 @@ const getByID = async(req, res) => {
 };
 
 const signUp = async(req, res) => {
-    const newListEntry = new list(req.body);
+    const { password } = req.body;
+
+  // Hash the password using bcrypt
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Create a new user with the hashed password
+  const newListEntry = new list({
+    username: req.body.username,
+    email: req.body.email,
+    password: hashedPassword
+  });
     try {
         const savedListEntry = await newListEntry.save();
         res.status(200).json("Saved List Entry:"+ savedListEntry);
@@ -32,6 +44,31 @@ const signUp = async(req, res) => {
         res.status(400).json('Error: ' + err);
     }
 };
+// const signUp = async(req, res) => {
+//     const { username, password, email } = req.body;
+  
+//     try {
+//       // Hash the password
+//       const hashedPassword = await new Promise((resolve, reject) => {
+//         bcrypt.hash(password, saltRounds, (err, hash) => {
+//           if (err) {
+//             reject(err);
+//           } else {
+//             resolve(hash);
+//           }
+//         });
+//       });
+  
+//       // Create a new user with the hashed password
+//       const newUser = new User({ username, password: hashedPassword, email });
+  
+//       // Save the user to the database
+//       const savedUser = await newUser.save();
+//       res.status(200).json("Saved User: " + savedUser);
+//     } catch (err) {
+//       res.status(400).json('Error: ' + err);
+//     }
+//   }
 const addData = async(req, res) => {
     const newEntry = new entry(req.body);
     try {
