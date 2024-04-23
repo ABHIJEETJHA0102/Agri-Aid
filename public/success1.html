@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboClub Expense Form</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+        }
+
+        form {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #444;
+            color: white;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #pending-requests {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <form>
+            <h1>Create a request</h1>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+
+            <label for="club">Club:</label>
+            <input type="text" id="club" name="club">
+
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position">
+
+            <label for="description">Description of Product:</label>
+            <input type="text" id="description" name="description" required>
+
+            <label for="purpose">Purpose:</label>
+            <input type="text" id="purpose" name="purpose" required>
+
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" required>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="pending-requests">
+            <h1>Pending Requests</h1>
+            <!-- Add content for pending requests here -->
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var userData = JSON.parse(sessionStorage.getItem('userData'));
+            if (userData) {
+                document.getElementById('username').value = userData.username;
+                document.getElementById('club').value = userData.club;
+                document.getElementById('position').value = userData.position;
+
+                document.getElementById('username').setAttribute('readonly', true);
+                document.getElementById('club').setAttribute('readonly', true);
+                document.getElementById('position').setAttribute('readonly', true);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" type="text/css" href="signup.css">
+</head>
+<body>
+    <form id="signupform" class="form">
+        <div style="margin-top: 60px;" class="title">Create an Account</div>
+
+        <div class="input-container ic2">
+            <input id="name" class="input" type="text" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="Name" class="placeholder">Full Name</label>
+        </div>
+
+        <div class="input-container ic2">
+            <input id="username" class="input" type="text" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="Username" class="placeholder">Username</label>
+        </div>
+
+        <div class="input-container ic2">
+            <select id="club" class="input" required>
+                <option value="" disabled selected>Select Club</option>
+                <option value="Robotronics">Robotronics</option>
+                <option value="Kp">Kamand Prompt</option>
+                <option value="Heuristics">Heuristics</option>
+                <option value="Designaut">Designaut</option>
+                <option value="Yantrik">Yantrik</option>
+            </select>
+            <div class="cut"></div>
+            <label for="Club" class="placeholder">Club</label>
+        </div>
+
+        <div class="input-container ic2">
+            <select id="position" class="input" required>
+                <option value="" disabled selected>Select Position</option>
+                <option value="secretary">Secretary</option>
+                <option value="co_ordinator">Co-ordinator</option>
+                <option value="society_fa">Society FA</option>
+                <option value="club_fa">Club FA</option>
+                <option value="chairsap">Chair SAP</option>
+                <option value="student_office">Students Office</option>
+            </select>
+            <div class="cut"></div>
+            <label for="position" class="placeholder">Position</label>
+        </div>
+
+        <div class="input-container ic2">
+            <input id="society" class="input" type="text" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="society" class="placeholder">Position</label>
+        </div>
+
+        <div class="input-container ic2">
+            <input id="email" class="input" type="email" placeholder=" " required/>
+            <div class="cut"></div>
+            <label for="email" class="placeholder">Email Address</label>
+        </div>
+
+        <div class="input-container ic2">
+            <input id="password" class="input" type="password" placeholder=" " required/>
+            <div class="cut cut-short"></div>
+            <label for="password" class="placeholder">Password</label>
+        </div>
+
+        <button type="button" class="submit" onclick="submitForm()">Signup</button>
+
+        <div class="signup-link">
+            <p style="color: white; font-family: sans-serif">Already have an account? </p>
+            <p><a style="color: white;" href="login.html">Login</a> </p>
+        </div>
+    </form>
+
+    <script>
+        function submitForm() {
+            // Serialize form data into JSON object
+            const formData = {
+                name: document.getElementById('name').value,
+                username: document.getElementById('username').value,
+                club: document.getElementById('club').value,
+                position: document.getElementById('position').value,
+                society: document.getElementById('society').value,
+                password: document.getElementById('password').value,
+                email: document.getElementById('email').value
+            };
+
+            // Send form data as JSON via AJAX
+            fetch('/users/signUp/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                // Handle response
+                console.log('Form submitted successfully');
+                alert("Account Created.")
+            })
+            .catch(error => {
+                // Handle error
+                console.error('Error submitting form:', error);
+            });
+        }
+    </script>
+</body>
+</html>
