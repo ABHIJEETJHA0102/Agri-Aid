@@ -32,24 +32,19 @@ router.get('/success2', isAuthenticated, (req, res) => {
 module.exports = router;
 
 router.get("/login", (req, res) => {
-    // Resolve the absolute path to your HTML file
     const htmlPath = path.join(__dirname, "../public","login.html");
-    
-    // Send the HTML file
     res.sendFile(htmlPath);
 });
 router.get("/", (req, res) => {
-    // Resolve the absolute path to your HTML file
     const htmlPath = path.join(__dirname, "../public","index.html");
-    
-    // Send the HTML file
     res.sendFile(htmlPath);
 });
 router.get("/home", (req, res) => {
-    // Resolve the absolute path to your HTML file
     const htmlPath = path.join(__dirname, "../public","index.html");
-    
-    // Send the HTML file
+    res.sendFile(htmlPath);
+});
+router.get("/speciesDetection", (req, res) => {
+    const htmlPath = path.join(__dirname, "../public","upload.html");
     res.sendFile(htmlPath);
 });
 router.get("/success1.html", (req, res) => {
