@@ -14,18 +14,6 @@ const user = mongoose.Schema({
     //     type:Number,
     //     required: [true,"Year required"],
     // },
-    club:{
-        type:String,
-        // required: [true," Company Name required"],
-    },
-    position:{
-        type:String,
-        // required: [true," Company Name required"],
-    },
-    society:{
-        type:String,
-        // required: [true," Company Name required"],
-    },
     password:{
         type:String,
         // required: [true," Company Name required"],
