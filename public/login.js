@@ -14,37 +14,71 @@ sign_in_btn.addEventListener("click", () => {
 
 signInForm.addEventListener('submit', login);
 
+// async function login(event) {
+//   event.preventDefault(); // Prevent form from submitting normally
+
+//   const username = document.getElementById('username').value;
+//   const password = document.getElementById('password').value;
+//   const passwordError = document.getElementById('password-error');
+
+//   try {
+//       const response = await fetch(`/getByUsername/${username}`);
+
+//       if (response.ok) {
+//           const users = await response.json();
+//           if (users.length > 0 && users[0].password === password) {
+//                   var userData = {
+//                       username: username,
+//                   };
+//                   sessionStorage.setItem('userData', JSON.stringify(userData));
+//                   window.open("/home", "_blank");
+//                   // Redirect to success page if login is successful
+//           } else {
+//               passwordError.textContent = "Incorrect username or password"; // Set error message
+//               passwordError.style.color = "red"; // Set error message color to red
+//           }
+//       } else {
+//           passwordError.textContent = "An error occurred. Please try again."; // Set error message
+//           passwordError.style.color = "red"; // Set error message color to red
+//       }
+//   } catch (error) {
+//       console.error('Error:', error);
+//       passwordError.textContent = "An error occurred. Please try again."; // Set error message
+//       passwordError.style.color = "red"; // Set error message color to red
+//   }
+// };
+
 async function login(event) {
   event.preventDefault(); // Prevent form from submitting normally
 
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-  const passwordError = document.getElementById('password-error');
 
   try {
-      const response = await fetch(`/getByUsername/${username}`);
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    });
 
-      if (response.ok) {
-          const users = await response.json();
-          if (users.length > 0 && users[0].password === password) {
-                  var userData = {
-                      username: username,
-                  };
-                  sessionStorage.setItem('userData', JSON.stringify(userData));
-                  window.open("/home", "_blank");
-                  // Redirect to success page if login is successful
-          } else {
-              passwordError.textContent = "Incorrect username or password"; // Set error message
-              passwordError.style.color = "red"; // Set error message color to red
-          }
-      } else {
-          passwordError.textContent = "An error occurred. Please try again."; // Set error message
-          passwordError.style.color = "red"; // Set error message color to red
-      }
+    const data = await response.json();
+    console.log(data);
+    if (data.message=="Login successful") {
+      // Redirect to success page if login is successful
+      window.open("/home", "_blank");
+    } else {
+      // Display error message if login fails
+      const passwordError = document.getElementById('password-error');
+      passwordError.textContent = data.message;
+      passwordError.style.color = "red";
+    }
   } catch (error) {
-      console.error('Error:', error);
-      passwordError.textContent = "An error occurred. Please try again."; // Set error message
-      passwordError.style.color = "red"; // Set error message color to red
+    console.error('Error:', error);
+    const passwordError = document.getElementById('password-error');
+    passwordError.textContent = "An error occurred. Please try again.";
+    passwordError.style.color = "red";
   }
 };
 signUpForm.addEventListener('submit', signUp);
