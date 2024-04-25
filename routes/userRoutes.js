@@ -3,9 +3,10 @@ const router = express.Router();
 const list = require("../models/user");
 const path = require("path"); // Import the path module
 
-const { getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData ,login} = require("../controllers/userController");
+const { getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData ,login,getByDeviceId} = require("../controllers/userController");
 router.route("/getAllItems").get(getAllList);
 router.route("/getByID/:id").get(getByID);
+router.route("/getByDeviceId/:deviceId").get(getByDeviceId);
 router.route("/updateByID/:id").put(updateByID);
 router.route("/getByUsername/:username").get(getByUsername);
 router.route("/signUp/").post(signUp);
@@ -71,11 +72,8 @@ router.get("/speciesDetection", (req, res) => {
     const htmlPath = path.join(__dirname, "../public","upload.html");
     res.sendFile(htmlPath);
 });
-router.get("/success1.html", (req, res) => {
-    // Resolve the absolute path to your HTML file
-    const htmlPath = path.join(__dirname, "../public","success1.html");
-    
-    // Send the HTML file
+router.get("/monitor", (req, res) => {
+    const htmlPath = path.join(__dirname, "../public","monitor.html");
     res.sendFile(htmlPath);
 });
 

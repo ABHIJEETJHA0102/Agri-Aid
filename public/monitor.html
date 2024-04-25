@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+        <!--=============== REMIX ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="monitor.css">
+
+        <title>upload page </title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                     Health
+                </a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="/home" class="nav__link active-link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav__link">Plant Monitoring</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="/speciesDetection" class="nav__link">Species<br> Detection</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav__link">Profile</a>
+                        </li>
+                        
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
+
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-menu-line"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main">
+            <!--==================== HOME ====================-->
+            <section class="home" id="home">
+                <div class="home__container container grid">
+                    <img src="pics/teemu-paananen-OOE4xAnBhKo-unsplash.jpg" alt="" class="home__img">
+
+                    <div class="home__data">
+                        <h1 class="home__title">
+                            Explore the  <br> Diversity of Life
+                        </h1>
+                        <p class="home__description">
+                            Upload your image or audio file to identify the species with our advanced detection algorithms. Discover the wonders of the natural world and contribute to scientific research. Start exploring now!
+                        </p>
+                       
+                        <form action="" class="home__form">
+                            <input type="text" id="devId" placeholder="Enter your kit ID" class="home__input">
+                            <input id="s1" type="submit" class="button button--flex button--small home__button" value="Know Your Plant"/>
+                        </form>
+                        <div id="password-error"></div>
+                    </div>
+                </div>
+            </section>
+            <!--==================== part ====================-->
+            <section class="part section" id="part">
+                <h2 class="section__title">
+                    Plant Conditions
+                </h2>
+                <span class="section__subtitle">Current Situations</span>
+                <div class="part__container container">
+                    <!--==================== parameter ====================-->
+                    <div>
+                         <!--==================== parameter1 ====================-->
+                        <div class="part__content grid">
+                            <img src="aastik-maurya-SMuPxs3eLD0-unsplash.jpg" alt="" class="part__img">
+                            <div class="part__data">
+                                <h3 class="part__title"></h3>
+                                <p class="part__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam suscipit </p>
+                                <a href="#" class="button button--flex button--small part button">
+                                    Moiture
+                                </a>
+                                <i class="ri-arrow-right-line"></i>
+                                <div class="button button--flex button--small part button" id="moisture"></div>
+                            </div>
+                        </div>
+                         <!--==================== parameter2 ====================-->
+                         <div class="part__content grid">
+                            <img src="aastik-maurya-SMuPxs3eLD0-unsplash.jpg" alt="" class="part__img">
+                            <div class="part__data">
+                                <h3 class="part__title"></h3>
+                                <p class="part__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam suscipit </p>
+                                <div class="button button--flex button--small part button">
+                                    Soil Temperature
+                                </div>
+                                <i class="ri-arrow-right-line"></i>
+                                <div class="button button--flex button--small part button" id="temp"></div>
+                            </div>
+                        </div>
+                         <!--==================== parameter3 ====================-->
+                         <div class="part__content grid">
+                            <img src="aastik-maurya-SMuPxs3eLD0-unsplash.jpg" alt="" class="part__img">
+                            <div class="part__data">
+                                <h3 class="part__title"></h3>
+                                <p class="part__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam suscipit </p>
+                                <a href="#" class="button button--flex button--small part button">
+                                    Electrical Conductivity
+                                </a>
+                                <i class="ri-arrow-right-line"></i>
+                                <div class="button button--flex button--small part button" id="ec"></div>
+                            </div>
+                        </div>
+                         <!--==================== parameter4 ====================-->
+                         <div class="part__content grid">
+                            <img src="aastik-maurya-SMuPxs3eLD0-unsplash.jpg" alt="" class="part__img">
+                            <div class="part__data">
+                                <h3 class="part__title"></h3>
+                                <p class="part__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam suscipit </p>
+                                <a href="#" class="button button--flex button--small part button">
+                                    pH of Soil
+                                </a>
+                                <i class="ri-arrow-right-line"></i>
+                                <div class="button button--flex button--small part button" id="pH"></div>
+                            </div>
+                        </div>
+                         <!--==================== parameter5 ====================-->
+                         <div class="part__content grid">
+                            <img src="aastik-maurya-SMuPxs3eLD0-unsplash.jpg" alt="" class="part__img">
+                            <div class="part__data">
+                                <h3 class="part__title"></h3>
+                                <p class="part__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam suscipit </p>
+                                <a href="#" class="button button--flex button--small part button">
+                                    Nitrogen Content
+                                </a>
+                                <i class="ri-arrow-right-line"></i>
+                                <div class="button button--flex button--small part button" id="N"></div>
+                            </div>
+                        </div>
+                         <!--==================== parameter6 ====================-->
+                         <div class="part__content grid">
+                            <img src="aastik-maurya-SMuPxs3eLD0-unsplash.jpg" alt="" class="part__img">
+                            <div class="part__data">
+                                <h3 class="part__title"></h3>
+                                <p class="part__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam suscipit </p>
+                                <a href="#" class="button button--flex button--small part button">
+                                    Phosphorus Content
+                                </a>
+                                <i class="ri-arrow-right-line"></i>
+                                <div class="button button--flex button--small part button" id="P"></div>
+                            </div>
+                        </div>
+                         <!--==================== parameter7 ====================-->
+                         <div class="part__content grid">
+                            <img src="aastik-maurya-SMuPxs3eLD0-unsplash.jpg" alt="" class="part__img">
+                            <div class="part__data">
+                                <h3 class="part__title"></h3>
+                                <p class="part__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam suscipit </p>
+                                <a href="#" class="button button--flex button--small part button">
+                                    Pottasium Content
+                                </a>
+                                <i class="ri-arrow-right-line"></i>
+                                <div class="button button--flex button--small part button" id="K"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+     <!--==================== FOOTER ====================-->
+     <footer class="footer">
+        <div class="footer__container container grid">
+           <div class="footer__content grid">
+             <div>
+              <a href="" class="footer__logo">Verdant</a>
+              <p class="footer__description">
+                 Peek behind the leaves with our cutting-edge monitoring tools, unveiling the hidden wonders of plant life and nurturing lush landscapes
+             </div>
+             <div class="footer__data grid">
+             <div>
+              <h3 class="footer__title">comapany</h3>
+              <ul class="footer__link">
+                 <li>
+                    <a href="" class="footer__link">faq</a>
+                 </li>
+                 <li>
+                    <a href="" class="footer__link">history</a>
+                 </li>
+                  <li>
+                    <a href="" class="footer__link">testimonials</a>
+                 </li>
+              </ul>
+             </div>
+             <div>
+              <h3 class="footer__title">contact</h3>
+              <ul class="footer__link">
+                 <li>
+                    <a href="" class="footer__link">call center</a>
+                 </li>
+                 <li>
+                    <a href="" class="footer__link">support center</a>
+                 </li>
+                  <li>
+                    <a href="" class="footer__link">contact us</a>
+                 </li>
+              </ul>
+             </div>
+             <div>
+              <h3 class="footer__title">support</h3>
+              <ul class="footer__link">
+                 <li>
+                    <a href="" class="footer__link">privacy policy</a>
+                 </li>
+                 <li>
+                    <a href="" class="footer__link">terms and services</a>
+                 </li>
+                  <li>
+                    <a href="" class="footer__link">payments</a>
+                 </li>
+              </ul>
+             </div>
+             <div>
+              <h3 class="footer__title">about</h3>
+              <ul class="footer__link">
+                 <li>
+                    <a href="" class="footer__link">about us</a>
+                 </li>
+                 <li>
+                    <a href="" class="footer__link">features</a>
+                 </li>
+                  <li>
+                    <a href="" class="footer__link">blog</a>
+                 </li>
+              </ul>
+             </div>
+             </div>
+           </div>
+           <div class="footer__group">
+              <div class="footer__social">
+                 <a href="" class="footer_social_link">
+                    <i class="ri-facebook-line"></i>
+                 </a>
+                 <a href="" class="footer_social_link">
+                    <i class="ri-instagram-line"></i> 
+                 </a>
+                 <a href="" class="footer_social_link">
+                    <i class="ri-threads-line"></i>  
+                 </a>
+                 <a href="" class="footer_social_link">
+                    <i class="ri-youtube-line"></i>
+                 </a>
+
+
+              </div>
+           </div>
+        </div>
+        
+     </footer>
+
+     
+    
+    <!--=============== SCROLL UP ===============-->
+    <a href="#" class="scrollup" id="scroll-up"> 
+        <i class="ri-arrow-up-fill scrollup__icon"></i>
+    </a>
+
+    <!--=============== SCROLL REVEAL ===============-->
+    <script src="scroll.min.js"></script>
+    
+    <!--=============== MAIN JS ===============-->
+    <script src="monitor.js"></script>
+</body>
+</html>

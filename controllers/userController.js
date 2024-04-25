@@ -1,6 +1,7 @@
 const list = require("../models/user");
 const entry = require("../models/Entry");
 const bcrypt = require('bcrypt');
+const Entry = require("../models/Entry");
 const saltRounds = 8;
 
 const getAllList = async(req, res) => {
@@ -19,12 +20,23 @@ const delete_i = async(req, res) => {
 const getByID = async(req, res) => {
     try {
         const find_entry=await list.findById(req.params.id);
-        res.status(200).json("Entry found:"+find_entry);
+        res.status(200).json(find_entry);
     } catch (err) {
         res.status(400).json('Error: ' + err);
     }
 };
-
+const getByDeviceId = async (req, res) => {
+    try {
+        const find_entries = await entry.find({ deviceId: req.params.deviceId });
+        if (find_entries.length > 0) {
+            res.status(200).json(find_entries);
+        } else {
+            res.status(404).json("No entries found for deviceId: " + req.params.deviceId);
+        }
+    } catch (err) {
+        res.status(400).json('Error: ' + err);
+    }
+};
 const signUp = async(req, res) => {
     const { password } = req.body;
 
@@ -122,4 +134,4 @@ const login=async(req,res)=>{
 }
 
 
-module.exports = {getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData,login};
+module.exports = {getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData,login,getByDeviceId};
