@@ -72,7 +72,7 @@
                      Unlock the mysteries of plants with our advanced monitoring tools, revealing the secrets behind vibrant greenery and flourishing gardens
                   </p>
                   <a href="/monitor" class="button">
-                     start your journey <i class="ri-arrow-right-line"></i>
+                     Start your journey <i class="ri-arrow-right-line"></i>
                   </a>
                </div>
                <div class="home-cards grid">
@@ -106,8 +106,8 @@
                   <p class="about__description">
                      Our plant monitoring kit is designed to help you keep track of your plant's health and well-being effortlessly.Our vision is to empower plant enthusiasts with the tools they need to nurture their green companions, promoting a healthier and greener world.
                   </p>
-                  <a href="" class="button">
-                     explore travel <i class="ri-arrow-right-line"></i>
+                  <a href="/speciesDetection" class="button">
+                     Explore Species detection<i class="ri-arrow-right-line"></i>
                   </a>
                </div>
                <div class="about__image">
@@ -126,7 +126,7 @@
             <div class="popular__container container grid">
                <article class="popular__card">
                <div class="popular__image">
-                  <img src="../../pics/pexels-cottonbro-3171033.jpg" alt="" class="popular_img">
+                  <img src="pics/pexels-cottonbro-3171033.jpg" alt="" class="popular_img">
                   <div class="popular__shadow"></div>
                </div>
                <h2 class="popular__title">
@@ -209,9 +209,10 @@
                   </p>
                   <form action="" class="join__form">
                   <input type="email" placeholder="Enter your email" class="join_input">
-                  <button class="join__button button">
-                  subscribe to our newsletter <i class="ri-arrow-right-line"></i>
+                  <button class="join__button button" onclick="done()">
+                  Subscribe to our newsletter <i class="ri-arrow-right-line"></i>
                   </button>
+                  <div id="subs"></div>
                   </form>
                </div>
                <div class="join__image">
@@ -324,5 +325,11 @@
 
       <!--=============== MAIN JS ===============-->
       <script src="./main.js" ></script>
+      <script>
+         async function done(){
+            document.getElementById('subs').tectContent="Thanks for subscribing!!";
+            document.getElementById('subs').style.color="red";
+         }
+      </script>
    </body>
 </html>
