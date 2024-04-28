@@ -31,39 +31,35 @@ kitIdForm.addEventListener('submit', function(event) {
   findDetail();
 });
 async function findDetail(event) {
-  // console.log("called")};
-//   event.preventDefault(); // Prevent form from submitting normally
+  const devId = document.getElementById('devId').value;
+  const passwordError = document.getElementById('password-error');
 
-const devId = document.getElementById('devId').value;
-const passwordError = document.getElementById('password-error');
-//   document.getElementById('temp').textContent="hahaha";
-try {
-    const response = await fetch(`/getByDeviceId/${devId}`);
-    if (response.ok) {
-        const results = await response.json();
-        console.log(results);
-        if (results.length>0) {
-          console.log(results[results.length-1].temperature);
-          document.getElementById('temp').textContent=results[results.length-1].temperature;
-          document.getElementById('moisture').textContent=results[results.length-1].moisture;
-          document.getElementById('ec').textContent=results[results.length-1].ec;
-          document.getElementById('pH').textContent=results[results.length-1].pH;
-          document.getElementById('N').textContent=results[results.length-1].N;
-          document.getElementById('P').textContent=results[results.length-1].P;
-          document.getElementById('K').textContent=results[results.length-1].K;
-        } else {
-            passwordError.textContent = "Incorrect Kit ID"; // Set error message
-            passwordError.style.color = "red"; // Set error message color to red
-        }
-    } else {
-        passwordError.textContent = "Incorrect Kit ID"; // Set error message
-        passwordError.style.color = "red"; // Set error message color to red
-    }
-} catch (error) {
-    console.error('Error:', error);
-    passwordError.textContent = "An error occurred. Please try again."; // Set error message
-    passwordError.style.color = "red"; // Set error message color to red
-}
+  try {
+      const response = await fetch(`/getByDeviceId/${devId}`);
+      if (response.ok) {
+          const results = await response.json();
+          if (results.length > 0) {
+              const latestResult = results[results.length - 1];
+              document.getElementById('temp').textContent += latestResult.temperature;
+              document.getElementById('moisture').textContent += latestResult.moisture;
+              document.getElementById('ec').textContent += latestResult.ec;
+              document.getElementById('pH').textContent += latestResult.pH;
+              document.getElementById('N').textContent += latestResult.N;
+              document.getElementById('P').textContent += latestResult.P;
+              document.getElementById('K').textContent += latestResult.K;
+          } else {
+              passwordError.textContent = "Incorrect Kit ID";
+              passwordError.style.color = "red";
+          }
+      } else {
+          passwordError.textContent = "Incorrect Kit ID";
+          passwordError.style.color = "red";
+      }
+  } catch (error) {
+      console.error('Error:', error);
+      passwordError.textContent = "An error occurred. Please try again.";
+      passwordError.style.color = "red";
+  }
 };
 
 /*=============== SHOW MENU ===============*/
