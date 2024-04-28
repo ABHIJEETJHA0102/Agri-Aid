@@ -3,7 +3,7 @@ const router = express.Router();
 const list = require("../models/user");
 const path = require("path"); // Import the path module
 
-const { getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData ,login,getByDeviceId} = require("../controllers/userController");
+const { getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData ,login,getByDeviceId,loginPost} = require("../controllers/userController");
 router.route("/getAllItems").get(getAllList);
 router.route("/getByID/:id").get(getByID);
 router.route("/getByDeviceId/:deviceId").get(getByDeviceId);
@@ -12,30 +12,7 @@ router.route("/getByUsername/:username").get(getByUsername);
 router.route("/signUp/").post(signUp);
 router.route("/login/").post(login);
 router.route("/addData").post(addData);
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-
-    try {
-        const user = await list.findOne({ username });
-
-        if (!user) {
-            return res.status(401).json({ message: 'Incorrect username or password' });
-        }
-
-        const passwordMatch = await bcrypt.compare(password, user.password);
-
-        if (passwordMatch) {
-            // Passwords match, handle successful login
-            // You can generate a token here for authentication
-            res.status(200).json({ message: 'Login successful' });
-        } else {
-            res.status(401).json({ message: 'Incorrect username or password' });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'An error occurred. Please try again.' });
-    }
-});
+router.route('/login').post(loginPost);
 // Example server-side route handling for success pages with authentication
 const isAuthenticated = require('../middleware/auth'); // Import middleware for authentication
 // Route handler for success page 2

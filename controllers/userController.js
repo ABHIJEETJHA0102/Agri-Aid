@@ -37,6 +37,30 @@ const getByDeviceId = async (req, res) => {
         res.status(400).json('Error: ' + err);
     }
 };
+const loginPost=async(req,res)=>{
+    const { username, password } = req.body;
+
+    try {
+        const user = await list.findOne({ username });
+
+        if (!user) {
+            return res.status(401).json({ message: 'Incorrect username or password' });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (passwordMatch) {
+            // Passwords match, handle successful login
+            // You can generate a token here for authentication
+            res.status(200).json({ message: 'Login successful' });
+        } else {
+            res.status(401).json({ message: 'Incorrect username or password' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred. Please try again.' });
+    }
+}
 const signUp = async(req, res) => {
     const { password } = req.body;
 
@@ -134,4 +158,4 @@ const login=async(req,res)=>{
 }
 
 
-module.exports = {getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData,login,getByDeviceId};
+module.exports = {getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData,login,getByDeviceId,loginPost};
