@@ -69,11 +69,15 @@
                         <p class="home__description">
                             Upload your image or audio file to identify the species with our advanced detection algorithms. Discover the wonders of the natural world and contribute to scientific research. Start exploring now!
                         </p>
-                        <label for="file-upload" class="button button--flex">
-                            Upload your image <i class="ri-arrow-right-down-line button__icon"></i>
-                        </label>
-                        <input id="file-upload" type="file" />
-                        <div class="file-name"></div>
+                        <form action="/upload"  enctype="multipart/form-data" method="post">
+                            <label for="file-upload" class="button button--flex">
+                                Upload your image <i class="ri-arrow-right-down-line button__icon"></i>
+                            </label>
+                            <input id="file-upload" type="file" name="uploaded_file"/>
+                            <div class="file-name"></div>
+                            <input type="submit" value="Get the results!" class="button button--flex">
+                        </form>
+                        
                         <!-- <a href="#about" class="button button--flex">
                             Upload your image <i class="ri-arrow-right-down-line button__icon"></i>
                         </a> -->

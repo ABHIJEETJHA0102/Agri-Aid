@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const list = require("../models/user");
 const path = require("path"); // Import the path module
+const multer  = require('multer');
+const upload = multer({ dest: './public/data/uploads/' });
 
 const { getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData ,login,getByDeviceId,loginPost} = require("../controllers/userController");
 router.route("/getAllItems").get(getAllList);
@@ -13,6 +15,12 @@ router.route("/signUp/").post(signUp);
 router.route("/login/").post(login);
 router.route("/addData").post(addData);
 router.route('/login').post(loginPost);
+router.post('/upload', upload.single('uploaded_file'), function (req, res) {
+    res.status(200).json("Saved Entry:"+ req.file.originalname);
+    // req.file is the name of your file in the form above, here 'uploaded_file'
+    // req.body will hold the text fields, if there were any 
+    console.log(req.file)
+ });
 // Example server-side route handling for success pages with authentication
 const isAuthenticated = require('../middleware/auth'); // Import middleware for authentication
 // Route handler for success page 2
