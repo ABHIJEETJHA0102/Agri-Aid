@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== FAVICON ===============-->
+        
+        <!--=============== REMIX ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <!--=============== CSS ===============-->
+        <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+        <link rel="stylesheet" href="newcss.css">
+
+        <title>upload page </title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                     Health
+                </a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#" class="nav__link active-link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav__link">About</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav__link">Image<br> Detection</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav__link">Profile</a>
+                        </li>
+                        
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
+
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-menu-line"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main">
+            <!--==================== HOME ====================-->
+            <section class="home" id="home">
+                <div class="home__container container grid">
+                    <img src="pics/—Pngtree—indoor plant flowerpot_14685403.png" alt="" class="home__img">
+
+                    <div class="home__data">
+                        <h1 class="home__title">
+                            Optimizing <br> Soil Health
+                        </h1>
+                        <p class="home__description">
+                            Explore the scientific essentials behind plant prosperity. Uncover the significance of NPK, moisture, EC, pH, and temperature in nurturing thriving greenery.
+                        </p>
+                       
+                        <form action="" class="home__form">
+                           <input type="text" id="devId" placeholder="Enter your kit ID" class="home__input">
+                           <input id="s1" type="submit" class="button button--flex button--small home__button" value="Know Your Plant"/>
+                       </form>
+                       <div id="password-error"></div>
+                    </div>
+                </div>
+            </section>
+            <!--==================== SLIDER===================-->
+            <div class="part " id="part">
+                <h2 class="part__title">
+                    Plant Conditions
+                </h2>
+                <span class="part__subtitle">Current Situations</span>
+            <section class="c_container">
+                <div class="card__container swiper">
+                   <div class="card__content">
+                      <div class="swiper-wrapper">
+                         <article class="card__article swiper-slide">
+                            <div class="card__image">
+                               <img src="pics/letter-n_8057812.png" alt="image" class="card__img">
+                               <div class="card__shadow"></div>
+                            </div>
+             
+                            <div class="card__data">
+                               <h3 class="card__name">Nitrogen content</h3>
+                               <p class="card__description">
+                                Fuel for leafy growth and vibrant greenery.
+                               </p>
+             
+                               <div class="card__button" id="N">Value</div>
+                            </div>
+                         </article>
+             
+                         <article class="card__article swiper-slide">
+                            <div class="card__image">
+                               <img src="pics/letter-p_8057814.png" alt="image" class="card__img">
+                               <div class="card__shadow"></div>
+                            </div>
+             
+                            <div class="card__data">
+                               <h3 class="card__name">Phosphorus content</h3>
+                               <p class="card__description">
+                                Promotes robust root development and flowering.
+                               </p>
+             
+                               <div class="card__button" id="P">Value</div>
+                            </div>
+                         </article>
+             
+                         <article class="card__article swiper-slide">
+                            <div class="card__image">
+                               <img src="pics/letter-k_8057809.png" alt="image" class="card__img">
+                               <div class="card__shadow"></div>
+                            </div>
+             
+                            <div class="card__data">
+                               <h3 class="card__name">Potassium content</h3>
+                               <p class="card__description">
+                                Enhances overall plant health and resilience.
+                               </p>
+             
+                               <div id="K" class="card__button">Value</div>
+                            </div>
+                         </article>
+             
+                         <article class="card__article swiper-slide">
+                            <div class="card__image">
+                               <img src="pics/water_5973366.png" alt="image" class="card__img">
+                               <div class="card__shadow"></div>
+                            </div>
+             
+                            <div class="card__data">
+                               <h3 class="card__name">Moisture Content</h3>
+                               <p class="card__description">
+                                Sustains hydration essential for plant vitality.
+                               </p>
+             
+                               <div id="moisture" class="card__button">Value</div>
+                            </div>
+                         </article>
+       
+                         <article class="card__article swiper-slide">
+                            <div class="card__image">
+                               <img src="pics/thermometer_8507392.png" alt="image" class="card__img">
+                               <div class="card__shadow"></div>
+                            </div>
+             
+                            <div class="card__data">
+                               <h3 class="card__name">Temperature</h3>
+                               <p class="card__description">
+                                Influences biological activity and plant metabolism.
+                               </p>
+             
+                               <div id="temp" class="card__button">Value</div>
+                            </div>
+                         </article>
+                         <article class="card__article swiper-slide">
+                            <div class="card__image">
+                               <img src="pics/planting_10346756.png" alt="image" class="card__img">
+                               <div class="card__shadow">Value</div>
+                            </div>
+             
+                            <div class="card__data">
+                               <h3 class="card__name">Soil Moisture Content</h3>
+                               <p class="card__description">
+                                Sustains hydration essential for plant vitality.
+                               </p>
+             
+                               <a href="#" class="card__button">Value</a>
+                            </div>
+                         </article>
+                         <article class="card__article swiper-slide">
+                            <div class="card__image">
+                               <img src="pics/axe_9865262.png" alt="image" class="card__img">
+                               <div class="card__shadow"></div>
+                            </div>
+             
+                            <div class="card__data">
+                               <h3 class="card__name">pH</h3>
+                               <p class="card__description">
+                                Indicates nutrient availability and soil health.
+                               </p>
+             
+                               <div id="pH" class="card__button">Value</div>
+                            </div>
+                         </article>
+
+                        </article>
+                        <article class="card__article swiper-slide">
+                           <div class="card__image">
+                              <img src="pics/electric-plug_11158823.png" alt="image" class="card__img">
+                              <div class="card__shadow"></div>
+                           </div>
+            
+                           <div class="card__data">
+                              <h3 class="card__name">EC</h3>
+                              <p class="card__description">
+                                Indicates nutrient availability and soil health.
+                              </p>
+            
+                              <div id="ec" class="card__button">Value</div>
+                           </div>
+                        </article>
+
+                         
+                      </div>
+                   </div>
+       
+                   <!-- Navigation buttons -->
+                   <div class="swiper-button-next">
+                      <i class="ri-arrow-right-s-line"></i>
+                   </div>
+                   
+                   <div class="swiper-button-prev">
+                      <i class="ri-arrow-left-s-line"></i>
+                   </div>
+       
+                   <!-- Pagination -->
+                   <div class="swiper-pagination"></div>
+                </div>
+             </section>
+            </div>
+     <!--==================== FOOTER ====================-->
+     <footer class="footer">
+        <div class="footer__container container grid">
+           <div class="footer__content grid">
+             <div>
+              <a href="" class="footer__logo">Verdant</a>
+              <p class="footer__description">
+                 Peek behind the leaves with our cutting-edge monitoring tools, unveiling the hidden wonders of plant life and nurturing lush landscapes
+             </div>
+             <div class="footer__data grid">
+             <div>
+              <h3 class="footer__title">company</h3>
+              <ul class="footer__link">
+                 <li>
+                    <a href="" class="footer__link">faq</a>
+                 </li>
+                 <li>
+                    <a href="" class="footer__link">history</a>
+                 </li>
+                  <li>
+                    <a href="" class="footer__link">testimonials</a>
+                 </li>
+              </ul>
+             </div>
+             <div>
+              <h3 class="footer__title">contact</h3>
+              <ul class="footer__link">
+                 <li>
+                    <a href="" class="footer__link">call center</a>
+                 </li>
+                 <li>
+                    <a href="" class="footer__link">support center</a>
+                 </li>
+                  <li>
+                    <a href="" class="footer__link">contact us</a>
+                 </li>
+              </ul>
+             </div>
+             <div>
+              <h3 class="footer__title">support</h3>
+              <ul class="footer__link">
+                 <li>
+                    <a href="" class="footer__link">privacy policy</a>
+                 </li>
+                 <li>
+                    <a href="" class="footer__link">terms and services</a>
+                 </li>
+                  <li>
+                    <a href="" class="footer__link">payments</a>
+                 </li>
+              </ul>
+             </div>
+             <div>
+              <h3 class="footer__title">about</h3>
+              <ul class="footer__link">
+                 <li>
+                    <a href="" class="footer__link">about us</a>
+                 </li>
+                 <li>
+                    <a href="" class="footer__link">features</a>
+                 </li>
+                  <li>
+                    <a href="" class="footer__link">blog</a>
+                 </li>
+              </ul>
+             </div>
+             </div>
+           </div>
+           <div class="footer__group">
+              <div class="footer__social">
+                 <a href="" class="footer_social_link">
+                    <i class="ri-facebook-line"></i>
+                 </a>
+                 <a href="" class="footer_social_link">
+                    <i class="ri-instagram-line"></i> 
+                 </a>
+                 <a href="" class="footer_social_link">
+                    <i class="ri-threads-line"></i>  
+                 </a>
+                 <a href="" class="footer_social_link">
+                    <i class="ri-youtube-line"></i>
+                 </a>
+
+
+              </div>
+           </div>
+        </div>
+        
+     </footer>
+
+     
+    
+    <!--=============== SCROLL UP ===============-->
+    <a href="#" class="scrollup" id="scroll-up"> 
+        <i class="ri-arrow-up-fill scrollup__icon"></i>
+    </a>
+
+    <!--=============== SCROLL REVEAL ===============-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="scroll.min.js"></script>
+    
+    <!--=============== MAIN JS ===============-->
+    <script src="plantMonitor.js"></script>
+</body>
+</html>

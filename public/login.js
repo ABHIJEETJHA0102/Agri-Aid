@@ -67,7 +67,7 @@ async function login(event) {
     console.log(data);
     if (data.message=="Login successful") {
       // Redirect to success page if login is successful
-      window.open("/home", "_blank");
+      window.open("/home2", "_blank");
     } else {
       // Display error message if login fails
       const passwordError = document.getElementById('password-error');
@@ -106,6 +106,7 @@ async function signUp(event) {
     // Handle response
     console.log('Form submitted successfully');
     alert("Account Created.")
+    window.open("/home2", "_blank");
   })
   .catch(error => {
     // Handle error

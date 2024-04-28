@@ -38,16 +38,6 @@ router.post('/login', async (req, res) => {
 });
 // Example server-side route handling for success pages with authentication
 const isAuthenticated = require('../middleware/auth'); // Import middleware for authentication
-
-// Route handler for success page 1
-// router.get('/success1.html', isAuthenticated, (req, res) => {
-//     // Only serve the success page if the user is authenticated
-    
-//     const htmlPath = path.join(__dirname, "../public","success1.html");
-//         // Send the HTML file
-//         res.sendFile(htmlPath);
-// });
-
 // Route handler for success page 2
 router.get('/success2', isAuthenticated, (req, res) => {
     // Only serve the success page if the user is authenticated
@@ -68,12 +58,16 @@ router.get("/home", (req, res) => {
     const htmlPath = path.join(__dirname, "../public","index.html");
     res.sendFile(htmlPath);
 });
+router.get("/home2", (req, res) => {
+    const htmlPath = path.join(__dirname, "../public","index2.html");
+    res.sendFile(htmlPath);
+});
 router.get("/speciesDetection", (req, res) => {
     const htmlPath = path.join(__dirname, "../public","upload.html");
     res.sendFile(htmlPath);
 });
 router.get("/monitor", (req, res) => {
-    const htmlPath = path.join(__dirname, "../public","monitor.html");
+    const htmlPath = path.join(__dirname, "../public","plantMonitor.html");
     res.sendFile(htmlPath);
 });
 
