@@ -15,6 +15,49 @@ fileInput.addEventListener("change", () => {
     fileNameDiv.textContent = "";
   }
 });
+// ========================apply ml===========
+// Select the form element
+async function predict(event) {
+    event.preventDefault(); // Prevent form from submitting normally
+
+    // Select the form element
+    const form = document.querySelector('form');
+
+    // Serialize form data into FormData object
+    const formData = new FormData(form);
+    
+    // Send form data via AJAX
+    fetch('/upload/', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        // Handle response
+        if(response.ok){
+            return response.text();
+        }
+        else{
+            throw new Error("Response not ok!!");
+        }
+    })
+    .then(data=>{
+
+        // console.log(data);
+        const jsonData = JSON.parse(data); // Parse the JSON string if needed
+        console.log(typeof(jsonData));
+        document.getElementById('result').textContent="Prediciton: "+jsonData;
+    })
+    .catch(error => {
+        // Handle error
+        console.error('Error submitting form:', error);
+    });
+};
+
+// Select the form element
+const form = document.querySelector('form');
+
+// Add an event listener for form submission
+form.addEventListener('submit', predict);
 
 /*===== MENU SHOW =====*/
 /* Validate if constant exists */

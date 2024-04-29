@@ -357,6 +357,8 @@ the website, in dark theme
     }
     .home__button{
      cursor:pointer; 
+     margin-bottom: 0rem;
+     padding-bottom: 0;
 }
 
 
@@ -398,21 +400,32 @@ the website, in dark theme
   transform: translateX(.25rem);
 }
 
-
+.head__container{
+  display:grid;
+  justify-content: center;
+  
+}
 
 
 .part__title{
+  display: block;
+   margin-top: 0rem;
     text-align: center;
-    margin-bottom: 2rem;
-    padding-top: 6rem;
+    margin-bottom: 0.9rem;
+    padding-top: 0rem;
     font-weight: 600;
     font-size: 2rem;
 }
 .part__subtitle{
-    margin-left: 42%;
-    margin-top: 2rem;
+  
+  position: absolute;
+ 
+   justify-self: center;
+    margin-top: 4rem;
     font-weight: 500;
     font-size: 1.2rem;
+    padding:0rem;
+    
     
 }
 
@@ -423,10 +436,12 @@ the website, in dark theme
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin-top: 0rem;
   }
   
   .card__container {
-    padding-block: 5rem;
+    padding-block: 2rem;
+    padding-top: 1.1rem;
   }
   
   .card__content {
@@ -530,8 +545,35 @@ the website, in dark theme
   .swiper-pagination-bullet-active {
     background-color: var(--second-color);
   }
-  
+ /*=============== Suggestions ===============*/ 
+ .suggestion-section {
+  width:100%;
+  text-align: center;
+  max-width: 75%;
+  margin: 5rem auto ;
+  margin-top: 0;
 
+}
+
+.suggestion-heading {
+  
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 0rem;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+
+.scrollable-content {
+  max-height: 400px; 
+  overflow-y: hidden; 
+  padding-right: 20px; 
+}
+
+.scrollable-content:hover {
+  overflow-y: auto; 
+}
 
 
 

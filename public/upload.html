@@ -26,16 +26,16 @@
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="/" class="nav__link active-link">Home</a>
+                            <a href="/home2" class="nav__link active-link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#" class="nav__link">Plant Monitoring</a>
+                            <a href="/monitor" class="nav__link">Plant Monitoring</a>
                         </li>
                         <li class="nav__item">
-                            <a href="speciesDetection" class="nav__link">Species<br> Detection</a>
+                            <a href="/speciesDetection" class="nav__link">Species<br> Detection</a>
                         </li>
                         <li class="nav__item">
-                            <a href="/login" class="nav__link">Profile</a>
+                            <a href="#" class="nav__link">Profile</a>
                         </li>
                         
                     </ul>
@@ -69,13 +69,14 @@
                         <p class="home__description">
                             Upload your image or audio file to identify the species with our advanced detection algorithms. Discover the wonders of the natural world and contribute to scientific research. Start exploring now!
                         </p>
-                        <form action="/upload"  enctype="multipart/form-data" method="post">
+                        <form action="#" enctype="multipart/form-data">
                             <label for="file-upload" class="button button--flex">
                                 Upload your image <i class="ri-arrow-right-down-line button__icon"></i>
                             </label>
-                            <input id="file-upload" type="file" name="uploaded_file"/>
+                            <input id="file-upload" type="file" accept="image/*" name="uploaded_file"/>
                             <div class="file-name"></div>
                             <input type="submit" value="Get the results!" class="button button--flex">
+                            <div id="result"></div>
                         </form>
                         
                         <!-- <a href="#about" class="button button--flex">
