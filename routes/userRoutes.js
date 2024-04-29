@@ -41,7 +41,7 @@ const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
                 try {
                     console.log("got here",predictionResult);
                     predictionResult = predictionResult.trim().split(' ').pop();
-                    // console.log(numbersAfterLastSpace);
+                    console.log("Prediction:",predictionResult);
                     resolve(predictionResult);
                 } catch (error) {
                     reject(new Error('Error parsing prediction output: ' + error.message));
