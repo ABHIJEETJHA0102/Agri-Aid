@@ -27,7 +27,7 @@ async function predict(event) {
     const formData = new FormData(form);
     
     // Send form data via AJAX
-    fetch('/upload/', {
+    fetch('/upload', {
         method: 'POST',
         body: formData
     })
