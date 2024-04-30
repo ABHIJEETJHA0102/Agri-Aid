@@ -8,6 +8,7 @@ const upload = multer({ storage: storage })
 // const upload = multer({ dest: './public/data/uploads/' });
 const { spawn } = require('child_process');
 const fs = require('fs');
+const { PythonShell } = require('python-shell');
 
 const { getAllList, delete_i, signUp, getByID, updateByID,getByUsername, addData ,login,getByDeviceId,loginPost} = require("../controllers/userController");
 router.route("/getAllItems").get(getAllList);
@@ -79,6 +80,82 @@ const saveImageToFile = async (filePath, imageDataBuffer) => {
         });
     });
 };
+router.post('/suggest',async (req,res)=>{
+    console.log(req.body);
+    let in1=(`${req.body.species} ${req.body.temperature} ${req.body.pH} ${req.body.N} ${req.body.P} ${req.body.K} ${req.body.moisture}`);
+    let options={
+        scriptPath: "./routes",
+        args:[in1]
+    }
+    console.log("kkkk");
+    // PythonShell.run("recom2.py",options,(err,res)=>{
+    //     console.log("iiiiii");
+    //     if(err)console.log(err);
+    //     if(res)console.log(res);
+    // });
+    try {
+        const result = await PythonShell.run("recom2.py", options);
+        // console.log("iiiii");
+        const result2=result.join("\n")
+        // console.log(result2);
+        res.status(200).json(result2);
+        // await getAns(req.body, res);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json()
+      }
+    // await getAns(req.body,res);
+
+})
+// const getAns = async (req, res) => {
+//     console.log(req.species);
+  
+//     // const predictionPromise = new Promise((resolve, reject) => {
+//     //   try {
+//         let in1=(`${req.species} ${req.temperature} ${req.pH} ${req.N} ${req.P} ${req.K} ${req.moisture}`);
+        // const pythonProcess2 = spawn('python3',  ['-c',  
+        // `import /routes/recom2; recom2.main2(${in1});`]); 
+        // console.log("pythonprocess");
+  
+        // let predictionResult;
+        // // pythonProcess2.stdin.on('data', () => {
+        // //     console.log(in1);
+        // //     pythonProcess2.stdin.write(in1);
+        // //     console.log(in1);
+        // // });
+        // console.log(in1);
+        // pythonProcess2.stdout.on('data', (data) => {
+        //     let predictionResult = '';
+        //   console.log("stdout: ", data.toString());
+        //   predictionResult += data.toString();
+        // });
+  
+        // pythonProcess2.stdout.on('exit', (code) => {
+        //     console.log("exit code:",code);
+        //   try {
+        //     console.log("Prediction:", predictionResult);
+        //     resolve(predictionResult);
+        //   } catch (error) {
+        //     reject(new Error('Error parsing prediction output: ' + error.message));
+        //   }
+        // });
+
+    //     pythonProcess2.on('error', (error) => {
+    //       reject(new Error('Error executing Python script: ' + error.message));
+    //     });
+    //   } catch (error) {
+    //     reject(new Error('Error calling python script: ' + error.message));
+    //   }
+    // });
+    // try {
+    //   const result = await predictionPromise;
+    //   console.log("final", result);
+    //   res.status(200).json(result);
+    // } catch (error) {
+    //   console.error('Error:', error);
+    //   res.status(500).json({ error: error.message });
+    // }
+//   };
 // Example server-side route handling for success pages with authentication
 const isAuthenticated = require('../middleware/auth'); // Import middleware for authentication
 const { type } = require("os");

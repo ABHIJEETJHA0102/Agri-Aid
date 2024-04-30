@@ -25,15 +25,15 @@ let swiperCards = new Swiper(".card__content", {
   });
   
 // ================show values=========
-const kitIdForm = document.querySelector('.home__form');
+const kitIdForm = document.querySelector('#form1');
 kitIdForm.addEventListener('submit', function(event) {
   event.preventDefault(); // Prevent the form from being submitted
   findDetail();
 });
+let temp,ec,pH,N,K,P,moisture;
 async function findDetail(event) {
   // console.log("called")};
 //   event.preventDefault(); // Prevent form from submitting normally
-
 const devId = document.getElementById('devId').value;
 const passwordError = document.getElementById('password-error');
 //   document.getElementById('temp').textContent="hahaha";
@@ -44,13 +44,20 @@ try {
         console.log(results);
         if (results.length>0) {
           console.log(results[results.length-1].temperature);
-          document.getElementById('temp').textContent="Value: ",results[results.length-1].temperature;
-          document.getElementById('moisture').textContent="Value: ",results[results.length-1].moisture;
-          document.getElementById('ec').textContent="Value: ",results[results.length-1].ec;
-          document.getElementById('pH').textContent="Value: ",results[results.length-1].pH;
-          document.getElementById('N').textContent="Value: ",results[results.length-1].N;
-          document.getElementById('P').textContent="Value: ",results[results.length-1].P;
-          document.getElementById('K').textContent="Value: ",results[results.length-1].K;
+          temp=results[results.length-1].temperature;
+          ec=results[results.length-1].ec;
+          pH=results[results.length-1].pH;
+          moisture=results[results.length-1].moisture;
+          N=results[results.length-1].N;
+          P=results[results.length-1].P;
+          K=results[results.length-1].K;
+          document.getElementById('temp').textContent="Value: "+results[results.length-1].temperature;
+          document.getElementById('moisture').textContent="Value: "+results[results.length-1].moisture;
+          document.getElementById('ec').textContent="Value: "+results[results.length-1].ec;
+          document.getElementById('pH').textContent="Value: "+results[results.length-1].pH;
+          document.getElementById('N').textContent="Value: "+results[results.length-1].N;
+          document.getElementById('P').textContent="Value: "+results[results.length-1].P;
+          document.getElementById('K').textContent="Value: "+results[results.length-1].K;
         } else {
             passwordError.textContent = "Incorrect Kit ID"; // Set error message
             passwordError.style.color = "red"; // Set error message color to red
@@ -65,6 +72,44 @@ try {
     passwordError.style.color = "red"; // Set error message color to red
 }
 };
+
+// ===================show suggestions=================
+const sugform=document.getElementById("form2");
+sugform.addEventListener('submit',getSuggestion);
+async function getSuggestion(event){
+  event.preventDefault();
+  const formData={
+    species:document.getElementById("sp").value,
+    temperature:temp,
+    ec:ec,
+    pH:pH,
+    N:N,
+    P:P,
+    K:K,
+    moisture:moisture,
+  };
+  fetch('/suggest', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    // Handle response
+    if(response.ok){
+        return response.json();
+    }
+    else{
+        throw new Error("Response not ok!!");
+    }
+  })
+  .then(data=>{
+      // console.log(data);
+      const jsonData = JSON.parse(data); // Parse the JSON string if needed
+      document.getElementById('result').textContent=jsonData;
+  })
+}
 
 /*=============== SHOW MENU ===============*/
 const navMenu = document.getElementById('nav-menu'),

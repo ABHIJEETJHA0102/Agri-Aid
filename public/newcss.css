@@ -547,32 +547,36 @@ the website, in dark theme
   }
  /*=============== Suggestions ===============*/ 
  .suggestion-section {
-  width:100%;
-  text-align: center;
+  width: 75%;
+  min-width:75%;
   max-width: 75%;
-  margin: 5rem auto ;
+  margin: 5rem auto;
   margin-top: 0;
-
+  border: 2px solid var(--title-color); 
+  border-radius: 10px; 
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .suggestion-heading {
-  
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-top: 0rem;
-    font-weight: 600;
-    font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-top: 0rem;
+  font-weight: 600;
+  font-size: 2rem;
 }
 
-
 .scrollable-content {
-  max-height: 400px; 
-  overflow-y: hidden; 
-  padding-right: 20px; 
+  max-height: 400px;
+  min-height:400px;
+  /* max-width:70%; */
+  overflow-y: hidden;
+  padding-right: 20px;
+  font-size: 2rem;
 }
 
 .scrollable-content:hover {
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 
