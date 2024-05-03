@@ -9,18 +9,40 @@
 
         <!--=============== REMIX ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="upload.css">
 
         <title>Species & disease detection </title>
     </head>
     <body>
+        <button class="chat-btn"> 
+            <i class="material-icons"> comment </i>
+        </button>
+      
+        <div class="chat-popup">
+            <div class="badge">1</div>
+            <div class="chat-area">
+             <div class="income-msg">
+                 <img src="stefan-stefancik-QXevDflbl8A-unsplash.jpg" class="avatar" alt="">
+                 <span class="msg"> Hi, How can I help you?</span>
+             </div>   
+            </div>
+      
+            <div class="input-area">
+                <input type="text">
+                <button id="emoji-btn"> &#127773;</button>
+                <button class="submit"> <i class="material-icons"> send</i></button>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js"></script>
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
                 <a href="#" class="nav__logo">
-                     Health
+                    <b>Agri-Aid</b>
                 </a>
 
                 <div class="nav__menu" id="nav-menu">
@@ -35,7 +57,7 @@
                             <a href="/speciesDetection" class="nav__link">Species<br> Detection</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#" class="nav__link">Profile</a>
+                            <a href="/profile" class="nav__link">Profile</a>
                         </li>
                         
                     </ul>
@@ -78,13 +100,23 @@
                             <input type="submit" value="Get the results!" class="button button--flex">
                             <div id="result"></div>
                         </form>
-                        
                         <!-- <a href="#about" class="button button--flex">
                             Upload your image <i class="ri-arrow-right-down-line button__icon"></i>
                         </a> -->
                     </div>
                 </div>
             </section>
+            <button id="startButton">Start Voice Input</button>
+                        <div id="output"></div>
+            <div class="suggestion-section">
+               <div id="password-error"></div>
+                <h3 class="suggestion-heading">Suggestions:</h3>
+                <div class="scrollable-content" >
+                    <p class="suggestion-paragraph" id="result3"></p>
+                    <p class="suggestion-paragraph" id="result2"></p>
+                </div>
+                </div>
+
 
          
 

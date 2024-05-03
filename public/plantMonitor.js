@@ -1,3 +1,133 @@
+// ================chat-box=========
+const popup = document.querySelector('.chat-popup');
+const chatBtn = document.querySelector('.chat-btn');
+const submitBtn = document.querySelector('.submit');
+const chatArea = document.querySelector('.chat-area');
+const inputElm = document.querySelector('input');
+const emojiBtn = document.querySelector('#emoji-btn');
+const picker = new EmojiButton();
+
+
+// Emoji selection  
+window.addEventListener('DOMContentLoaded', () => {
+
+    picker.on('emoji', emoji => {
+      document.querySelector('input').value += emoji;
+    });
+  
+    emojiBtn.addEventListener('click', () => {
+      picker.togglePicker(emojiBtn);
+    });
+  });        
+
+//   chat button toggler 
+
+chatBtn.addEventListener('click', ()=>{
+    popup.classList.toggle('show');
+})
+
+// send msg 
+submitBtn.addEventListener('click', ()=>{
+    let userInput = inputElm.value;
+
+    let temp = `<div class="out-msg">
+    <span class="my-msg">${userInput}</span>
+    <img src="img/me.jpg" class="avatar">
+    </div>`;
+
+    chatArea.insertAdjacentHTML("beforeend", temp);
+    inputElm.value = '';
+    fetch('/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: userInput }),
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to send message');
+      }
+    })
+    .then(data => {
+      // Create a new message element for the chatbot's response
+      console.log(data);
+      const botMessageElement = document.createElement('div');
+      botMessageElement.classList.add('income-msg');
+      botMessageElement.innerHTML = `
+        <img src="pics/stefan-stefancik-QXevDflbl8A-unsplash.jpg" class="avatar" alt="">
+        <span class="msg">${data}</span>
+      `;
+
+      // Append the chatbot's message to the chat area
+      chatArea.appendChild(botMessageElement);
+
+      // Scroll to the bottom of the chat area
+      chatArea.scrollTop = chatArea.scrollHeight;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+})
+// ==================voice input=================
+const startButton = document.getElementById('startButton');
+const output = document.getElementById('output');
+
+// Check if the Web Speech API is supported
+if ('webkitSpeechRecognition' in window) {
+  const recognition = new webkitSpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  recognition.onstart = () => {
+    output.textContent = 'Listening...';
+  };
+
+  recognition.onresult = (event) => {
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      if (event.results[i].isFinal) {
+        transcript += event.results[i][0].transcript;
+      }
+    }
+
+    output.textContent = transcript;
+    if(transcript){
+      recognition.stop();
+      fetch(`/voice-input?transcript=${encodeURIComponent(transcript)}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log('Response from backend:', data);
+        // Convert the response string into speech
+        const utterance = new SpeechSynthesisUtterance(data);
+        speechSynthesis.speak(utterance);
+        // Stop the speech recognition after the backend request is completed
+        // recognition.stop();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Stop the speech recognition in case of an error
+        recognition.stop();
+      });
+    }
+    // Send the transcript as a GET request to the backend
+  };
+
+  recognition.onend = () => {
+    output.textContent = 'Stopped listening.';
+  };
+
+  startButton.addEventListener('click', () => {
+    recognition.start();
+  }, { once: true });
+} else {
+  output.textContent = 'Web Speech API is not supported in this browser.';
+}
+
+// ===================
 let swiperCards = new Swiper(".card__content", {
     loop: true,
     spaceBetween: 32,
@@ -23,7 +153,9 @@ let swiperCards = new Swiper(".card__content", {
       },
     },
   });
-  
+
+
+
 // ================show values=========
 const kitIdForm = document.querySelector('#form1');
 kitIdForm.addEventListener('submit', function(event) {
@@ -106,8 +238,8 @@ async function getSuggestion(event){
   })
   .then(data=>{
       // console.log(data);
-      const jsonData = JSON.parse(data); // Parse the JSON string if needed
-      document.getElementById('result').textContent=jsonData;
+      const jsonData = data; // Parse the JSON string if needed
+      document.getElementById('result').innerHTML=jsonData;
   })
 }
 

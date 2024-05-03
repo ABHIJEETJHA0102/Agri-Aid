@@ -8,6 +8,7 @@
         
         <!--=============== REMIX ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
 
         <!--=============== CSS ===============-->
         <link
@@ -19,11 +20,31 @@
         <title>upload page </title>
     </head>
     <body>
+      <!-- ==================chatbot================ -->
+      <button class="chat-btn"> 
+         <i class="material-icons"> comment </i>
+     </button>
+   
+     <div class="chat-popup">
+         <div class="badge">1</div>
+         <div class="chat-area">
+          <div class="income-msg">
+              <img src="pics/stefan-stefancik-QXevDflbl8A-unsplash.jpg" class="avatar" alt="">
+              <span class="msg"> Hi, How can I help you?</span>
+          </div>   
+         </div>
+   
+         <div class="input-area">
+             <input type="text">
+             <button id="emoji-btn"> &#127773;</button>
+             <button class="submit"> <i class="material-icons"> send</i></button>
+         </div>
+     </div>
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
                 <a href="#" class="nav__logo">
-                     Health
+                     <b>Agri-Aid</b>
                 </a>
 
                 <div class="nav__menu" id="nav-menu">
@@ -38,7 +59,7 @@
                             <a href="/speciesDetection" class="nav__link">Species<br> Detection</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#" class="nav__link">Profile</a>
+                            <a href="/profile" class="nav__link">Profile</a>
                         </li>
                         
                     </ul>
@@ -79,6 +100,8 @@
                        </form>
                        <div id="password-error"></div>
                     </div>
+                    <button id="startButton">Start Voice Input</button>
+                        <div id="output"></div>
                 </div>
             </section>
             <!--==================== SLIDER===================-->
@@ -348,6 +371,8 @@
         </div>
         
      </footer>
+</section>
+
 
      
     
@@ -358,6 +383,7 @@
 
     <!--=============== SCROLL REVEAL ===============-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js"></script>
     <script src="scroll.min.js"></script>
     
     <!--=============== MAIN JS ===============-->

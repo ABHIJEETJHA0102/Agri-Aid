@@ -23,6 +23,7 @@ tf.get_logger().setLevel('ERROR')  # Set TensorFlow logger to only display ERROR
 def main2():
     # sys.stdout.write("called")
     # Resize the image to the expected input size
+    arr=arr = ['Apple__Apple_scab', 'Apple_Black_rot', 'Apple_Cedar_apple_rust', 'Apple_healthy', 'Blueberry_healthy', 'Cherry(including_sour)__healthy', 'Cherry(including_sour)__Powdery_mildew', 'Corn(maize)__Cercospora_leaf_spot Gray_leaf_spot', 'Corn(maize)__Common_rust', 'Corn_(maize)__healthy', 'Corn(maize)__Northern_Leaf_Blight', 'Grape_Black_rot', 'Grape_Esca(Black_Measles)', 'Grape__healthy', 'Grape_Leaf_blight(Isariopsis_Leaf_Spot)', 'Orange__Haunglongbing(Citrus_greening)', 'Peach__Bacterial_spot', 'Peach_healthy', 'Pepper,_bell_Bacterial_spot', 'Pepper,_bell_healthy', 'Potato_Early_blight', 'Potato_healthy', 'Potato_Late_blight', 'Raspberry_healthy', 'Soybean_healthy', 'Squash_Powdery_mildew', 'Strawberry_healthy', 'Strawberry_Leaf_scorch', 'Tomato_Bacterial_spot', 'Tomato_Early_blight', 'Tomato_healthy', 'Tomato_Late_blight', 'Tomato_Leaf_Mold', 'Tomato_Septoria_leaf_spot', 'Tomato_Spider_mites Two-spotted_spider_mite', 'Tomato_Target_Spot', 'Tomato_Tomato_mosaic_virus', 'Tomato__Tomato_Yellow_Leaf_Curl_Virus']
     image_path = 'image.jpg'
     img = image.load_img(image_path, target_size=(224, 224))
     img_array = image.img_to_array(img)
@@ -50,9 +51,9 @@ def main2():
     predictions = model.predict(img_array_copy)
     predicted_class_index = np.argmax(predictions[0])
     sys.stdout.write("  ")
-    sys.stdout.write(str(predicted_class_index))
+    sys.stdout.write(str(arr[predicted_class_index]))
     sys.stdout.flush()
-    return str(predicted_class_index)
+    return str(arr[predicted_class_index-1])
 
 main2()
 # You can now work with the predictions as needed

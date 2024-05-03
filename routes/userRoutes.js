@@ -23,39 +23,63 @@ router.route('/login').post(loginPost);
 
 const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
     try {
+        let result2;
+        let result;
         await saveImageToFile(filePath, imageDataBuffer); // Wait for image to be saved successfully
-
+        try {
+            let options={
+                scriptPath: "./routes"
+            }
+            result = await PythonShell.run("predict.py", options);
+            // console.log("iiiii");
+            result=result[result.length-1];
+            console.log(result);
+            let in1="Provide treatment and prevention measure for this disease:"+result;
+            let options2={
+                scriptPath: "./routes/chatbot",
+                args:[in1]
+            }
+            result2 = await PythonShell.run("model.py", options2);
+            console.log(result2);
+            result2 = result2.map(str => str.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> '));
+            console.log(result2);
+            result2=result2.join("<br>")
+            // await getAns(req.body, res);
+          } catch (err) {
+            console.error(err);
+            res.status(500).json()
+          }
         // Proceed with spawning the child process for the Python script
-        const pythonProcess = spawn('python', ["./routes/predict.py","main2"]);
-        console.log("pythonprocess");
+        // const pythonProcess = spawn('python', ["./routes/predict.py","main2"]);
+        // console.log("pythonprocess");
 
-        let predictionResult;
-        const predictionPromise = new Promise((resolve, reject) => {
-            let predictionResult = '';
+        // let predictionResult;
+        // const predictionPromise = new Promise((resolve, reject) => {
+        //     let predictionResult = '';
         
-            pythonProcess.stdout.on('data', (data) => {
-                predictionResult += data.toString();
-                // console.log(predictionResult);
-            });
+        //     pythonProcess.stdout.on('data', (data) => {
+        //         predictionResult += data.toString();
+        //         // console.log(predictionResult);
+        //     });
             
-            pythonProcess.stdout.on('end', () => {
-                try {
-                    console.log("got here",predictionResult);
-                    predictionResult = predictionResult.trim().split(' ').pop();
-                    console.log("Prediction:",predictionResult);
-                    resolve(predictionResult);
-                } catch (error) {
-                    reject(new Error('Error parsing prediction output: ' + error.message));
-                }
-            });
+        //     pythonProcess.stdout.on('end', () => {
+        //         try {
+        //             console.log("got here",predictionResult);
+        //             predictionResult = predictionResult.trim().split(' ').pop();
+        //             console.log("Prediction:",predictionResult);
+        //             resolve(predictionResult);
+        //         } catch (error) {
+        //             reject(new Error('Error parsing prediction output: ' + error.message));
+        //         }
+        //     });
         
-            pythonProcess.on('error', (error) => {
-                reject(new Error('Error executing Python script: ' + error.message));
-            });
-        });
+        //     pythonProcess.on('error', (error) => {
+        //         reject(new Error('Error executing Python script: ' + error.message));
+        //     });
+        // });
         // console.log(predictionResult);
-        predictionResult = await predictionPromise;
-        res.status(200).json(predictionResult);
+        result="Prediction: <b>"+result+"</b>";
+        res.status(200).json({prediction:result,message:result2});
     } catch (error) {
         console.error('Error saving image:', error);
         res.status(500).json({ error: error.message });
@@ -98,7 +122,16 @@ router.post('/suggest',async (req,res)=>{
         // console.log("iiiii");
         const result2=result.join("\n")
         // console.log(result2);
-        res.status(200).json(result2);
+        let options2={
+            scriptPath: "./routes/chatbot",
+            args:[result2]
+        }
+        let result3 = await PythonShell.run("model.py", options2);
+        console.log(result3);
+        result3 = result3.map(str => str.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> '));
+        console.log(result3);
+        result3=result3.join("<br>")
+        res.status(200).json(result3);
         // await getAns(req.body, res);
       } catch (err) {
         console.error(err);
@@ -107,55 +140,30 @@ router.post('/suggest',async (req,res)=>{
     // await getAns(req.body,res);
 
 })
-// const getAns = async (req, res) => {
-//     console.log(req.species);
-  
-//     // const predictionPromise = new Promise((resolve, reject) => {
-//     //   try {
-//         let in1=(`${req.species} ${req.temperature} ${req.pH} ${req.N} ${req.P} ${req.K} ${req.moisture}`);
-        // const pythonProcess2 = spawn('python3',  ['-c',  
-        // `import /routes/recom2; recom2.main2(${in1});`]); 
-        // console.log("pythonprocess");
-  
-        // let predictionResult;
-        // // pythonProcess2.stdin.on('data', () => {
-        // //     console.log(in1);
-        // //     pythonProcess2.stdin.write(in1);
-        // //     console.log(in1);
-        // // });
-        // console.log(in1);
-        // pythonProcess2.stdout.on('data', (data) => {
-        //     let predictionResult = '';
-        //   console.log("stdout: ", data.toString());
-        //   predictionResult += data.toString();
-        // });
-  
-        // pythonProcess2.stdout.on('exit', (code) => {
-        //     console.log("exit code:",code);
-        //   try {
-        //     console.log("Prediction:", predictionResult);
-        //     resolve(predictionResult);
-        //   } catch (error) {
-        //     reject(new Error('Error parsing prediction output: ' + error.message));
-        //   }
-        // });
+router.post('/chat',async (req,res)=>{
+    console.log(req.body.message);
+    console.log("kkkk");
+    try {
+        let in1=req.body.message;
+        let options={
+            scriptPath: "./routes/chatbot",
+            args:[in1]
+        }
+        let result = await PythonShell.run("model.py", options);
+        // console.log("iiiii");
+        console.log(result);
+        result = result.map(str => str.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> '));
+        console.log(result);
+        result=result.join("<br>")
+        res.status(200).json(result);
+        // await getAns(req.body, res);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json()
+      }
+    // await getAns(req.body,res);
 
-    //     pythonProcess2.on('error', (error) => {
-    //       reject(new Error('Error executing Python script: ' + error.message));
-    //     });
-    //   } catch (error) {
-    //     reject(new Error('Error calling python script: ' + error.message));
-    //   }
-    // });
-    // try {
-    //   const result = await predictionPromise;
-    //   console.log("final", result);
-    //   res.status(200).json(result);
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   res.status(500).json({ error: error.message });
-    // }
-//   };
+})
 // Example server-side route handling for success pages with authentication
 const isAuthenticated = require('../middleware/auth'); // Import middleware for authentication
 const { type } = require("os");
@@ -169,6 +177,10 @@ module.exports = router;
 
 router.get("/login", (req, res) => {
     const htmlPath = path.join(__dirname, "../public","login.html");
+    res.sendFile(htmlPath);
+});
+router.get("/profile", (req, res) => {
+    const htmlPath = path.join(__dirname, "../public","profile.html");
     res.sendFile(htmlPath);
 });
 router.get("/", (req, res) => {
@@ -191,5 +203,36 @@ router.get("/monitor", (req, res) => {
     const htmlPath = path.join(__dirname, "../public","plantMonitor.html");
     res.sendFile(htmlPath);
 });
+router.get("/chatbot", (req, res) => {
+    const htmlPath = path.join(__dirname, "../public/chatbot","ChatBox.jsx");
+    res.render(htmlPath);
+});
+router.get('/voice-input', async(req, res) => {
+    const transcript = req.query.transcript;
+    console.log('Received transcript:', transcript);
+    if(transcript){
+        try {
+            let in1=transcript;
+            let options={
+                scriptPath: "./routes/chatbot",
+                args:[in1]
+            }
+            let result = await PythonShell.run("model.py", options);
+            // console.log("iiiii");
+            console.log(result);
+            result = result.map(str => str.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> '));
+            console.log(result);
+            result=result.join("<br>")
+            return res.status(200).json(result);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'An error occurred' });
+        }
+    }
+
+    // Process the transcript here, e.g., store it in a database, send it to a speech-to-text service, etc.
+    return res.json({ message: 'Transcript received successfully' });
+})
+
 
 module.exports = router;
