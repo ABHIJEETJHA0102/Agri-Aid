@@ -9,7 +9,7 @@
         <!--=============== REMIX ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
-
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <!--=============== CSS ===============-->
         <link
   rel="stylesheet"
@@ -20,6 +20,23 @@
         <title>upload page </title>
     </head>
     <body>
+      <section>
+         <button class="startButton"> 
+             <i class='bx bxs-microphone' style="font-size: 2em;"></i>
+         </button>
+ 
+         <div class="chat-popup2">
+             <div class="modal-header">
+                 <div class="title"> Modal
+                     <button id="startButton">Start Voice</button>
+                 </div>
+                 <button data-close-button class="close-button">&times;</button>
+               </div>
+               <div class="output" id="output">
+               </div>
+             </div>
+     </section>
+     <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js"></script>
       <!-- ==================chatbot================ -->
       <button class="chat-btn"> 
          <i class="material-icons"> comment </i>
@@ -100,8 +117,6 @@
                        </form>
                        <div id="password-error"></div>
                     </div>
-                    <button id="startButton">Start Voice Input</button>
-                        <div id="output"></div>
                 </div>
             </section>
             <!--==================== SLIDER===================-->

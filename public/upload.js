@@ -1,3 +1,12 @@
+
+
+const ppup = document.querySelector('.chat-popup2');
+const chatBitn = document.querySelector('.startButton');
+
+
+chatBitn.addEventListener('click', ()=>{
+    ppup.classList.toggle('show');
+})
 // ================chat-box=========
 const popup = document.querySelector('.chat-popup');
 const chatBtn = document.querySelector('.chat-btn');
