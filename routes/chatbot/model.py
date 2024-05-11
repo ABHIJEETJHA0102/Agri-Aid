@@ -78,7 +78,13 @@ import openai
 # Loading the GPT-3.5 Turbo model
 # openai.api_key = 'sk-proj-qIzYflKkszJgArMzdhBsT3BlbkFJUX4IEIJXAE6pPE7LcNhW'
 # openai.api_key = 'sk-proj-EtlgxRNYT6mofFVptPsJT3BlbkFJSvTTJbCGiQzu7rJSQZr7'
-openai.api_key = 'sk-proj-bo02t2Yj2XXArbGBwLxGT3BlbkFJRwkEW7P5BKVZT2qnGHaO'
+# openai.api_key = 'sk-proj-bo02t2Yj2XXArbGBwLxGT3BlbkFJRwkEW7P5BKVZT2qnGHaO'
+# openai.api_key = 'sk-proj-6aLwdr2OEKERDpBZGGzhT3BlbkFJj2AnbXtc5sPjD1x8B96W'
+# openai.api_key = 'sk-proj-9P8vBnj9RnFrW9jJw3K0T3BlbkFJL3LcgQykM2zTfAp8VcmS'
+# openai.api_key = 'sk-proj-GVQwf1An1027Ns4hseShT3BlbkFJAGjN9DXetAPxeWU6MnW3'
+# openai.api_key = 'sk-proj-E7ywiv4r614sU7q37iJMT3BlbkFJvlflob4PRmGN0SHiHgwW'
+openai.api_key = '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'
+
 model_id = 'gpt-3.5-turbo'
 # #<-------------------------------------------------------------------------------------------------->
 # Generating template of prompt to give to my model
