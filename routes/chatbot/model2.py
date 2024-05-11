@@ -40,19 +40,11 @@ retriever = db1.as_retriever(
 #<-------------------------------------------------------------------------------------------------->
 #Query to ask from the database
 query = sys.argv[1]
-values = query.split()
-species, soil_temp, pH_values, N_values, P_values, K_values, sm_values =values
 
 #Fetching it from above
 # docs = db1.similarity_search(query)
 # print(docs[0].page_content)
 # #<-------------------------------------------------------------------------------------------------->
-
-def data_context(sm_values, N_values, pH_values, P_values,K_values,soil_temp,species):
-    data_string = 'plant_Species'+str(species)+',Soil_temperature'+str(soil_temp)+',Soil Moisture'+str(sm_values) +',Nitrozen'+str(N_values) +',Phosphorus'+str(P_values)+',Potasium'+str(K_values)+',pH level'+str(pH_values)
-    return data_string
-
-    return data_string
 def augment_prompt(query: str):
     # get top 3 results from knowledge base
     results = db1.similarity_search(query, k=10)
@@ -129,8 +121,7 @@ def generate_respons(prompt):
 # Query to be asked
 
 # Invoking query in pipeline
-query2=data_context(sm_values, N_values, pH_values, P_values,K_values,soil_temp,species)
-context = augment_prompt(query2)
+context = augment_prompt(query)
 prompt = generate_prompt(context, query)
 response = generate_respons(prompt)
 # Storing output text

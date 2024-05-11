@@ -107,10 +107,10 @@ const saveImageToFile = async (filePath, imageDataBuffer) => {
 router.post('/suggest',async (req,res)=>{
     console.log(req.body);
     let in1=(`${req.body.species} ${req.body.temperature} ${req.body.pH} ${req.body.N} ${req.body.P} ${req.body.K} ${req.body.moisture}`);
-    let options={
-        scriptPath: "./routes",
-        args:[in1]
-    }
+    // let options={
+    //     scriptPath: "./routes",
+    //     args:[in1]
+    // }
     console.log("kkkk");
     // PythonShell.run("recom2.py",options,(err,res)=>{
     //     console.log("iiiiii");
@@ -118,13 +118,13 @@ router.post('/suggest',async (req,res)=>{
     //     if(res)console.log(res);
     // });
     try {
-        const result = await PythonShell.run("recom2.py", options);
+        // const result = await PythonShell.run("recom2.py", options);
         // console.log("iiiii");
-        const result2=result.join("\n")
+        // const result2=result.join("\n")
         // console.log(result2);
         let options2={
             scriptPath: "./routes/chatbot",
-            args:[result2]
+            args:[in1]
         }
         let result3 = await PythonShell.run("model.py", options2);
         console.log(result3);
@@ -149,7 +149,7 @@ router.post('/chat',async (req,res)=>{
             scriptPath: "./routes/chatbot",
             args:[in1]
         }
-        let result = await PythonShell.run("model.py", options);
+        let result = await PythonShell.run("model2.py", options);
         // console.log("iiiii");
         console.log(result);
         result = result.map(str => str.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> '));

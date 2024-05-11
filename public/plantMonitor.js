@@ -33,53 +33,65 @@ window.addEventListener('DOMContentLoaded', () => {
 chatBtn.addEventListener('click', ()=>{
     popup.classList.toggle('show');
 })
+submitBtn.addEventListener('click', () => {
+  let userInput = inputElm.value;
 
-// send msg 
-submitBtn.addEventListener('click', ()=>{
-    let userInput = inputElm.value;
-
-    let temp = `<div class="out-msg">
+  let temp = `<div class="out-msg">
     <span class="my-msg">${userInput}</span>
     <img src="img/me.jpg" class="avatar">
     </div>`;
 
-    chatArea.insertAdjacentHTML("beforeend", temp);
-    inputElm.value = '';
-    fetch('/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message: userInput }),
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Failed to send message');
-      }
-    })
-    .then(data => {
-      // Create a new message element for the chatbot's response
-      console.log(data);
-      const botMessageElement = document.createElement('div');
-      botMessageElement.classList.add('income-msg');
-      botMessageElement.innerHTML = `
-        <img src="pics/stefan-stefancik-QXevDflbl8A-unsplash.jpg" class="avatar" alt="">
-        <span class="msg">${data}</span>
-      `;
+  chatArea.insertAdjacentHTML("beforeend", temp);
+  inputElm.value = '';
 
-      // Append the chatbot's message to the chat area
-      chatArea.appendChild(botMessageElement);
+  // Create a loading visual div
+  const loadingDiv = document.createElement('div');
+  loadingDiv.classList.add('income-msg');
+  loadingDiv.innerHTML = `
+  <img src="pics/stefan-stefancik-QXevDflbl8A-unsplash.jpg" class="avatar" alt="">
+    <span class="msg"><img src="pics/loader.gif" alt="Sending message..."></span>
+  `;
+  chatArea.appendChild(loadingDiv);
 
-      // Scroll to the bottom of the chat area
-      chatArea.scrollTop = chatArea.scrollHeight;
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+  fetch('/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ message: userInput }),
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to send message');
+    }
+  })
+  .then(data => {
+    // Remove the loading visual div
+    loadingDiv.remove();
 
-})
+    // Create a new message element for the chatbot's response
+    console.log(data);
+    const botMessageElement = document.createElement('div');
+    botMessageElement.classList.add('income-msg');
+    botMessageElement.innerHTML = `
+      <img src="pics/stefan-stefancik-QXevDflbl8A-unsplash.jpg" class="avatar" alt="">
+      <span class="msg">${data}</span>
+    `;
+
+    // Append the chatbot's message to the chat area
+    chatArea.appendChild(botMessageElement);
+
+    // Scroll to the bottom of the chat area
+    chatArea.scrollTop = chatArea.scrollHeight;
+  })
+  .catch(error => {
+    // Remove the loading visual div
+    loadingDiv.remove();
+    console.error('Error:', error);
+  });
+});
 // ==================voice input=================
 const startButton = document.getElementById('startButton');
 const output = document.getElementById('output');
