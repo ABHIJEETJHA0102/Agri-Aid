@@ -83,7 +83,8 @@ import openai
 # openai.api_key = 'sk-proj-9P8vBnj9RnFrW9jJw3K0T3BlbkFJL3LcgQykM2zTfAp8VcmS'
 # openai.api_key = 'sk-proj-GVQwf1An1027Ns4hseShT3BlbkFJAGjN9DXetAPxeWU6MnW3'
 # openai.api_key = 'sk-proj-E7ywiv4r614sU7q37iJMT3BlbkFJvlflob4PRmGN0SHiHgwW'
-openai.api_key = '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'
+# openai.api_key = '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'
+openai.api_key = 'sk-proj-ian989IaL3hjkFPMhLDkT3BlbkFJmyoH8VyXLxafW4W0iN2l'
 
 model_id = 'gpt-3.5-turbo'
 # #<-------------------------------------------------------------------------------------------------->

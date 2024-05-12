@@ -39,7 +39,7 @@ const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
                 scriptPath: "./routes/chatbot",
                 args:[in1]
             }
-            result2 = await PythonShell.run("model.py", options2);
+            result2 = await PythonShell.run("model2.py", options2);
             console.log(result2);
             result2 = result2.map(str => str.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> '));
             console.log(result2);
