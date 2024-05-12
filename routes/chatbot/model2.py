@@ -68,10 +68,6 @@ from transformers import pipeline
 import openai
 # #<-------------------------------------------------------------------------------------------------->
 # Loading the GPT-3.5 Turbo model
-# openai.api_key = 'sk-proj-qIzYflKkszJgArMzdhBsT3BlbkFJUX4IEIJXAE6pPE7LcNhW'
-# openai.api_key = 'sk-proj-EtlgxRNYT6mofFVptPsJT3BlbkFJSvTTJbCGiQzu7rJSQZr7'
-# openai.api_key = 'sk-proj-bo02t2Yj2XXArbGBwLxGT3BlbkFJRwkEW7P5BKVZT2qnGHaO'
-openai.api_key = 'sk-proj-ian989IaL3hjkFPMhLDkT3BlbkFJmyoH8VyXLxafW4W0iN2l'
 model_id = 'gpt-3.5-turbo'
 # #<-------------------------------------------------------------------------------------------------->
 # Generating template of prompt to give to my model
