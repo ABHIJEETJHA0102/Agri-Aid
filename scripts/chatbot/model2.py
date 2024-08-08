@@ -5,7 +5,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import sys
 #<-------------------------------------------------------------------------------------------------->
 DATA_PATH = 'books/'  #Path containing my data
-DB_FAISS_PATH = './routes/chatbot/vectorstore/db_faiss'  #Path where we store the embeddings of the data
+DB_FAISS_PATH = './scripts/chatbot/vectorstore/db_faiss'  #Path where we store the embeddings of the data
 #<-------------------------------------------------------------------------------------------------->
 #Function for creating embeddings of my data
 def create_vector_db():
@@ -40,19 +40,11 @@ retriever = db1.as_retriever(
 #<-------------------------------------------------------------------------------------------------->
 #Query to ask from the database
 query = sys.argv[1]
-values = query.split()
-species, soil_temp, pH_values, N_values, P_values, K_values, sm_values =values
 
 #Fetching it from above
 # docs = db1.similarity_search(query)
 # print(docs[0].page_content)
 # #<-------------------------------------------------------------------------------------------------->
-
-def data_context(sm_values, N_values, pH_values, P_values,K_values,soil_temp,species):
-    data_string = 'plant_Species'+str(species)+',Soil_temperature'+str(soil_temp)+',Soil Moisture'+str(sm_values) +',Nitrozen'+str(N_values) +',Phosphorus'+str(P_values)+',Potasium'+str(K_values)+',pH level'+str(pH_values)
-    return data_string
-
-    return data_string
 def augment_prompt(query: str):
     # get top 3 results from knowledge base
     results = db1.similarity_search(query, k=10)
@@ -76,8 +68,7 @@ from transformers import pipeline
 import openai
 # #<-------------------------------------------------------------------------------------------------->
 # Loading the GPT-3.5 Turbo model
-
-
+openai.api_key = 'sk-proj-ian989IaL3hjkFPMhLDkT3BlbkFJmyoH8VyXLxafW4W0iN2l'
 model_id = 'gpt-3.5-turbo'
 # #<-------------------------------------------------------------------------------------------------->
 # Generating template of prompt to give to my model
@@ -128,8 +119,7 @@ def generate_respons(prompt):
 # Query to be asked
 
 # Invoking query in pipeline
-query2=data_context(sm_values, N_values, pH_values, P_values,K_values,soil_temp,species)
-context = augment_prompt(query2)
+context = augment_prompt(query)
 prompt = generate_prompt(context, query)
 response = generate_respons(prompt)
 # Storing output text

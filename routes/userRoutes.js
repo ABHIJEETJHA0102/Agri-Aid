@@ -28,7 +28,7 @@ const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
         await saveImageToFile(filePath, imageDataBuffer); // Wait for image to be saved successfully
         try {
             let options={
-                scriptPath: "./routes"
+                scriptPath: "./scripts"
             }
             result = await PythonShell.run("predict.py", options);
             // console.log("iiiii");
@@ -36,7 +36,7 @@ const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
             console.log(result);
             let in1="Provide treatment and prevention measure for this disease:"+result;
             let options2={
-                scriptPath: "./routes/chatbot",
+                scriptPath: "./scripts/chatbot",
                 args:[in1]
             }
             result2 = await PythonShell.run("model2.py", options2);
@@ -87,8 +87,9 @@ const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
 };
 
 router.post('/upload', upload.single('uploaded_file'), async (req, res)=>{
+    console.log("got image");
     const imageDataBuffer = Buffer.from(req.file.buffer.toString('base64'), 'base64');
-    const filePath = './image.jpg'; // Change the extension according to your image format
+    const filePath = '../image.jpg'; // Change the extension according to your image format
     await saveAndProcessImage(filePath, imageDataBuffer, res);
 });
 const saveImageToFile = async (filePath, imageDataBuffer) => {
@@ -123,7 +124,7 @@ router.post('/suggest',async (req,res)=>{
         // const result2=result.join("\n")
         // console.log(result2);
         let options2={
-            scriptPath: "./routes/chatbot",
+            scriptPath: "./scripts/chatbot",
             args:[in1]
         }
         let result3 = await PythonShell.run("model.py", options2);
@@ -146,7 +147,7 @@ router.post('/chat',async (req,res)=>{
     try {
         let in1=req.body.message;
         let options={
-            scriptPath: "./routes/chatbot",
+            scriptPath: "./scripts/chatbot",
             args:[in1]
         }
         let result = await PythonShell.run("model2.py", options);
