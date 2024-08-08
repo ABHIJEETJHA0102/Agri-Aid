@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config({ path: './config.env' });
 
 const connectDB = () => {
     console.log("connect db");

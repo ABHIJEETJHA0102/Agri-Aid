@@ -1,5 +1,5 @@
 const express = require("express");
-const dotenv = require("dotenv").config({ path: './config.env' });
+const dotenv = require("dotenv").config({ path: './.env' });
 const app = express();
 const connectDB = require("./db/openConnect");
 const path = require("path"); // Import path module
