@@ -21,7 +21,7 @@ const uploadPage=async(req,res)=>{
     res.sendFile(htmlPath);
 };
 const plantMonitor=async(req,res)=>{
-    const htmlPath = path.join(__dirname, "../public","plantmonitor.html");
+    const htmlPath = path.join(__dirname, "../public","plantMonitor.html");
     res.sendFile(htmlPath);
 };
 const chatBox=async(req,res)=>{
