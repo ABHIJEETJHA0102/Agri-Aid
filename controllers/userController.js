@@ -184,14 +184,97 @@ const login=async(req,res)=>{
 }
 
 //plant species prediction ===================================x==============x===========================
-const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
-    try {
+// const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
+//     try {
+//         let result2;
+//         let result;
+//         await saveImageToFile(filePath, imageDataBuffer); // Wait for image to be saved successfully
+//         try {
+//             let options={
+//                 scriptPath: "./scripts"
+//             }
+//             result = await PythonShell.run("predict.py", options);
+//             // console.log("iiiii");
+//             result=result[result.length-1];
+//             console.log(result);
+//             let in1="Provide treatment and prevention measure for this disease:"+result;
+//             let options2={
+//                 scriptPath: "./scripts/chatbot",
+//                 args:[in1]
+//             }
+//             result2 = await PythonShell.run("model2.py", options2);
+//             console.log(result2);
+//             result2 = result2.map(str => str.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> '));
+//             console.log(result2);
+//             result2=result2.join("<br>")
+//             // await getAns(req.body, res);
+//           } catch (err) {
+//             console.error(err);
+//             res.status(500).json()
+//           }
+//         result="Prediction: <b>"+result+"</b>";
+//         res.status(200).json({prediction:result,message:result2});
+//     } catch (error) {
+//         console.error('Error saving image:', error);
+//         res.status(500).json({ error: error.message });
+//     }
+// };
+// const saveImageToFile = async (filePath, imageDataBuffer) => {
+//     return new Promise((resolve, reject) => {
+//         fs.writeFile(filePath, imageDataBuffer, (err) => {
+//             if (err) {
+//                 console.error('Error saving image:', err);
+//                 reject(err);
+//             } else {
+//                 console.log('Image saved successfully.');
+//                 resolve();
+//             }
+//         });
+//     });
+// };
+// const uploadFunc = async (req, res) => {
+//     // Call the upload middleware directly
+//     upload.single('uploaded_file')(req, res, async (err) => {
+//         if (err) {
+//             return res.status(400).send('Error uploading file');
+//         }
+        
+//         console.log("got image");
+        
+//         // Ensure req.file is defined
+//         if (!req.file) {
+//             return res.status(400).send('No file uploaded');
+//         }
+
+//         const imageDataBuffer = Buffer.from(req.file.buffer.toString('base64'), 'base64');
+//         const filePath = '../image.jpg'; // Change the extension according to your image format
+        
+//         await saveAndProcessImage(filePath, imageDataBuffer, res);
+//     });
+// };
+const uploadFunc = async (req, res) => {
+    // Call the upload middleware directly
+    upload.single('uploaded_file')(req, res, async (err) => {
+        if (err) {
+            return res.status(400).send('Error uploading file');
+        }
+        
+        console.log("got image");
+        
+        // Ensure req.file is defined
+        if (!req.file) {
+            return res.status(400).send('No file uploaded');
+        }
+
+        const imageDataBuffer =req.file.buffer.toString('base64');
+        console.log(imageDataBuffer);
         let result2;
         let result;
-        await saveImageToFile(filePath, imageDataBuffer); // Wait for image to be saved successfully
+        // await saveImageToFile(filePath, imageDataBuffer); // Wait for image to be saved successfully
         try {
             let options={
-                scriptPath: "./scripts"
+                scriptPath: "./scripts",
+                args:[imageDataBuffer]
             }
             result = await PythonShell.run("predict.py", options);
             // console.log("iiiii");
@@ -214,42 +297,10 @@ const saveAndProcessImage = async (filePath, imageDataBuffer, res) => {
           }
         result="Prediction: <b>"+result+"</b>";
         res.status(200).json({prediction:result,message:result2});
-    } catch (error) {
-        console.error('Error saving image:', error);
-        res.status(500).json({ error: error.message });
-    }
-};
-const saveImageToFile = async (filePath, imageDataBuffer) => {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(filePath, imageDataBuffer, (err) => {
-            if (err) {
-                console.error('Error saving image:', err);
-                reject(err);
-            } else {
-                console.log('Image saved successfully.');
-                resolve();
-            }
-        });
-    });
-};
-const uploadFunc = async (req, res) => {
-    // Call the upload middleware directly
-    upload.single('uploaded_file')(req, res, async (err) => {
-        if (err) {
-            return res.status(400).send('Error uploading file');
-        }
+        // const filePath = '../image.jpg'; // Change the extension according to your image format
         
-        console.log("got image");
-        
-        // Ensure req.file is defined
-        if (!req.file) {
-            return res.status(400).send('No file uploaded');
-        }
+        // await saveAndProcessImage(filePath, imageDataBuffer, res);
 
-        const imageDataBuffer = Buffer.from(req.file.buffer.toString('base64'), 'base64');
-        const filePath = '../image.jpg'; // Change the extension according to your image format
-        
-        await saveAndProcessImage(filePath, imageDataBuffer, res);
     });
 };
 module.exports = {signUp, updateByID,getByUsername, addData,login,getByDeviceId,loginPost,suggestFunc,chat,voice_input,uploadFunc};
