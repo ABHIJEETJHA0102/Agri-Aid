@@ -68,7 +68,26 @@ from transformers import pipeline
 import openai
 # #<-------------------------------------------------------------------------------------------------->
 # Loading the GPT-3.5 Turbo model
-openai.api_key = 'sk-proj-ian989IaL3hjkFPMhLDkT3BlbkFJmyoH8VyXLxafW4W0iN2l'
+def load_env_file(file_path):
+    env_vars = {}
+    with open(file_path) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#'):  # Ignore empty lines and comments
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip().strip('"').strip("'")  # Remove quotes if any
+    return env_vars
+
+# Load the .env file
+env_vars = load_env_file('./.env')
+
+# Access the API key directly
+api_key = env_vars.get('Api_key')
+# print(api_key)
+
+# Example usage
+# print(f"API Key: {api_key}")
+openai.api_key=api_key
 model_id = 'gpt-3.5-turbo'
 # #<-------------------------------------------------------------------------------------------------->
 # Generating template of prompt to give to my model

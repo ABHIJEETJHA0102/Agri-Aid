@@ -3,7 +3,8 @@ from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import sys
-from dotenv import load_dotenv
+# import os
+# from dotenv import load_dotenv
 #<-------------------------------------------------------------------------------------------------->
 DATA_PATH = 'books/'  #Path containing my data
 DB_FAISS_PATH = './scripts/chatbot/vectorstore/db_faiss'  #Path where we store the embeddings of the data
@@ -80,10 +81,29 @@ import openai
 
 
 model_id = 'gpt-3.5-turbo'
-load_dotenv('.env')
+# load_dotenv('.env')
+def load_env_file(file_path):
+    env_vars = {}
+    with open(file_path) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#'):  # Ignore empty lines and comments
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip().strip('"').strip("'")  # Remove quotes if any
+    return env_vars
 
-openai.api_key = os.getenv('Api_key')
-print(openai.api_key)
+# Load the .env file
+env_vars = load_env_file('./.env')
+
+# Access the API key directly
+api_key = env_vars.get('Api_key')
+# print(api_key)
+
+# Example usage
+# print(f"API Key: {api_key}")
+openai.api_key=api_key
+# openai.api_key = os.getenv('Api_key')
+# print(openai.api_key)
 # #<-------------------------------------------------------------------------------------------------->
 # Generating template of prompt to give to my model
 prompt_template = """

@@ -168,11 +168,6 @@ router.post('/chat',async (req,res)=>{
 // Example server-side route handling for success pages with authentication
 const isAuthenticated = require('../middleware/auth'); // Import middleware for authentication
 const { type } = require("os");
-// Route handler for success page 2
-router.get('/success2', isAuthenticated, (req, res) => {
-    // Only serve the success page if the user is authenticated
-    res.render('success2', { user: req.user }); // Render success2.ejs with user data
-});
 
 module.exports = router;
 
@@ -215,10 +210,10 @@ router.get('/voice-input', async(req, res) => {
         try {
             let in1=transcript;
             let options={
-                scriptPath: "./routes/chatbot",
+                scriptPath: "./scripts/chatbot",
                 args:[in1]
             }
-            let result = await PythonShell.run("model.py", options);
+            let result = await PythonShell.run("model2.py", options);
             // console.log("iiiii");
             console.log(result);
             result = result.map(str => str.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> '));
