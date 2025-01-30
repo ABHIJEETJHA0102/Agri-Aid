@@ -53,12 +53,12 @@ submitBtn.addEventListener('click', () => {
   `;
   chatArea.appendChild(loadingDiv);
 
-  fetch('/chat', {
+  fetch('http://127.0.0.1:8000/query', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ message: userInput }),
+    body: JSON.stringify({ sentence: userInput }),
   })
   .then(response => {
     if (response.ok) {
@@ -68,21 +68,23 @@ submitBtn.addEventListener('click', () => {
     }
   })
   .then(data => {
-    // Remove the loading visual div
-    loadingDiv.remove();
-
-    // Create a new message element for the chatbot's response
-    console.log(data);
+    // Extract the response message correctly
+    console.log(data);  // Debugging: Check the actual response object
+    var botResponse = data.response;  // Extract the correct field
+  
     const botMessageElement = document.createElement('div');
     botMessageElement.classList.add('income-msg');
+    botResponse = botResponse.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> ').replace(/\n/g, '<br>'); 
+    // console.log(result);
+    // botResponse=botResponse.join("<br>")
     botMessageElement.innerHTML = `
       <img src="pics/stefan-stefancik-QXevDflbl8A-unsplash.jpg" class="avatar" alt="">
-      <span class="msg">${data}</span>
+      <span class="msg">${botResponse}</span>
     `;
-
+  
     // Append the chatbot's message to the chat area
     chatArea.appendChild(botMessageElement);
-
+  
     // Scroll to the bottom of the chat area
     chatArea.scrollTop = chatArea.scrollHeight;
   })

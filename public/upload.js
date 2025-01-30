@@ -7,6 +7,7 @@ const chatBitn = document.querySelector('.startButton');
 chatBitn.addEventListener('click', ()=>{
     ppup.classList.toggle('show');
 })
+
 // ================chat-box=========
 const popup = document.querySelector('.chat-popup');
 const chatBtn = document.querySelector('.chat-btn');
@@ -46,36 +47,42 @@ submitBtn.addEventListener('click', ()=>{
 
     chatArea.insertAdjacentHTML("beforeend", temp);
     inputElm.value = '';
-    fetch('/chat', {
+    fetch('http://127.0.0.1:8000/query', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message: userInput }),
+      body: JSON.stringify({ sentence: userInput }),
     })
     .then(response => {
       if (response.ok) {
+        console.log(response);
         return response.json();
       } else {
         throw new Error('Failed to send message');
       }
     })
     .then(data => {
-      // Create a new message element for the chatbot's response
-      console.log(data);
+      // Extract the response message correctly
+      console.log(data);  // Debugging: Check the actual response object
+      var botResponse = data.response;  // Extract the correct field
+    
       const botMessageElement = document.createElement('div');
       botMessageElement.classList.add('income-msg');
+      botResponse = botResponse.replace(/\*\*(.*?)\*\*/g, '<b>$1</b> ').replace(/\n/g, '<br>'); 
+      // console.log(result);
+      // botResponse=botResponse.join("<br>")
       botMessageElement.innerHTML = `
         <img src="pics/stefan-stefancik-QXevDflbl8A-unsplash.jpg" class="avatar" alt="">
-        <span class="msg">${data}</span>
+        <span class="msg">${botResponse}</span>
       `;
-
+    
       // Append the chatbot's message to the chat area
       chatArea.appendChild(botMessageElement);
-
+    
       // Scroll to the bottom of the chat area
       chatArea.scrollTop = chatArea.scrollHeight;
-    })
+    })    
     .catch(error => {
       console.error('Error:', error);
     });
@@ -153,48 +160,119 @@ fileInput.addEventListener("change", () => {
   }
 });
 // ========================apply ml===========
+function markdownToHtml(markdown) {
+  // Handle line breaks by replacing newlines with <br> tags
+  markdown = markdown.replace(/\n/g, "<br>");
+
+  // Replace ordered lists (1., 2., 3., etc.) - Wrap them in <ol> tag
+  markdown = markdown.replace(/^(\d+)\. (.*)/gm, (match, number, content) => {
+      return `<li>${content}</li>`;  // Return list item for ordered list
+  });
+  markdown = markdown.replace(/(<li>.*<\/li>)/gm, '<ol>$&</ol>');  // Wrap ordered list items inside <ol>
+
+  // Replace unordered lists (- or * as bullet points) - Wrap them in <ul> tag
+  markdown = markdown.replace(/^[-*] (.*)/gm, (match, content) => {
+      return `<li>${content}</li>`;  // Return list item for unordered list
+  });
+  markdown = markdown.replace(/(<li>.*<\/li>)/gm, '<ul>$&</ul>');  // Wrap unordered list items inside <ul>
+
+  // Replace bold (**text** or __text__)
+  markdown = markdown.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  markdown = markdown.replace(/__(.*?)__/g, "<strong>$1</strong>");
+
+  // Replace italic (*text* or _text_)
+  markdown = markdown.replace(/\*(.*?)\*/g, "<em>$1</em>");
+  markdown = markdown.replace(/_(.*?)_/g, "<em>$1</em>");
+
+  // Replace links [text](url)
+  markdown = markdown.replace(/\[([^\[]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>');
+
+  return markdown;
+}
+
+async function predict(event) {
+  event.preventDefault(); // Prevent form from submitting normally
+
+  // Select the form element
+  const form = document.querySelector('form');
+
+  // Serialize form data into FormData object
+  const formData = new FormData(form);
+  
+  // Send form data via AJAX to the correct endpoint
+  fetch('http://127.0.0.1:8000/upload_image/', {
+      method: 'POST',
+      body: formData,  // FormData automatically sets the correct headers
+  })
+  .then(response => {
+      // Handle response
+      console.log("respone:",response);
+      if (response.ok) {
+          return response.json();
+      } else {
+          throw new Error('Response not ok!!');
+      }
+  })
+  .then(data => {
+      // Handle the JSON data response
+      const prediction = data.prediction;
+      const treatmentInfo = data.treatment_info;
+
+      // Convert treatment_info from Markdown to HTML manually
+      const treatmentInfoHtml = markdownToHtml(treatmentInfo);
+
+      // Display the result on the frontend
+      document.getElementById('result3').innerText = prediction;
+      document.getElementById('result2').innerHTML = treatmentInfoHtml;  // Render as HTML
+  })
+  .catch(error => {
+      // Handle error
+      console.error('Error submitting form:', error);
+  });
+}
+
+// Add event listener for form submission
+document.querySelector('form').addEventListener('submit', predict);
+
 // Select the form element
 async function predict(event) {
-    event.preventDefault(); // Prevent form from submitting normally
+  event.preventDefault(); // Prevent form from submitting normally
 
-    // Select the form element
-    const form = document.querySelector('form');
+  // Select the form element
+  const form = document.querySelector('form');
 
-    // Serialize form data into FormData object
-    const formData = new FormData(form);
-    
-    // Send form data via AJAX
-    fetch('/upload', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        // Handle response
-        if(response.ok){
-            console.log(response);
-            return response.json();
-        }
-        else{
-            throw new Error("Response not ok!!");
-        }
-    })
-    .then(data=>{
+  // Serialize form data into FormData object
+  const formData = new FormData(form);
 
-        // console.log(data);
-        const jsonData = data.message; // Parse the JSON string if needed
-        console.log(jsonData);
-        document.getElementById('result3').innerHTML=data.prediction;
-        document.getElementById('result2').innerHTML=jsonData;
-    })
-    .catch(error => {
-        // Handle error
-        console.error('Error submitting form:', error);
-    });
+  // Send form data via AJAX
+  console.log("formdata:",formData);
+  fetch('http://127.0.0.1:8000/upload_image/', {
+      method: 'POST',
+      body: formData
+  })
+  .then(response => {
+      // Handle response
+      if(response.ok) {
+          return response.json();
+      } else {
+          throw new Error("Response not ok!!");
+      }
+  })
+  .then(data => {
+      // Handle the response data
+      console.log(data);
+      const treatmentInfoHtml = markdownToHtml(data.treatment_info);
+      // Update the HTML elements with the prediction and treatment information
+      document.getElementById('result3').innerHTML = data.prediction;
+      document.getElementById('result2').innerHTML = treatmentInfoHtml;
+  })
+  .catch(error => {
+      // Handle error
+      console.error('Error submitting form:', error);
+  });
 };
-
 // Select the form element
 const form = document.querySelector('form');
-
 // Add an event listener for form submission
 form.addEventListener('submit', predict);
 

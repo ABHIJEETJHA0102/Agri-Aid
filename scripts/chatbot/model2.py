@@ -94,7 +94,7 @@ model_id = 'gpt-3.5-turbo'
 prompt_template = """
 ### [INSTRUCTION]
 You are "AgriAid", world's best farming assistant. you will be given a context for a plant which will contain plant
-species, it's soil moisture, it's soil nitrozen, potesium, phosphorus values. The users would asking different types of
+species, it's soil moisture, it's soil nitrozen, potesium, phosphorus values. The users would be asking different types of
 agricultural decision making qestions. You have to help them with queries.
 
 {context}
